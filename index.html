@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIAN Capabilities Map — 3D Interactive</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0c14;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    cursor: grab;
+  }
+  body:active { cursor: grabbing; }
+  canvas { display: block; }
+
+  #ui {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,12,20,0.95), transparent);
+    pointer-events: none;
+    z-index: 10;
+  }
+  #title {
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #e8c97a;
+    font-weight: 600;
+  }
+  #subtitle {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.1em;
+    margin-top: 3px;
+  }
+  #legend {
+    display: flex; gap: 16px;
+  }
+  .leg {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 10px; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em;
+  }
+  .leg-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  #tooltip {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(232,201,122,0.12);
+    border: 1px solid rgba(232,201,122,0.3);
+    color: #e8c97a;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(8px);
+    z-index: 10;
+  }
+  #tooltip.show { opacity: 1; }
+
+  #hint {
+    position: fixed;
+    bottom: 20px;
+    right: 24px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.1em;
+    text-align: right;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+
+<div id="ui">
+  <div>
+    <div id="title">BIAN Capabilities Map</div>
+    <div id="subtitle">Banking Industry Architecture Network — Interactive 3D View</div>
+  </div>
+  <div id="legend">
+    <div class="leg"><div class="leg-dot" style="background:#e8c97a"></div>Products & Finance</div>
+    <div class="leg"><div class="leg-dot" style="background:#7ab8e8"></div>Operations & Support</div>
+    <div class="leg"><div class="leg-dot" style="background:#7ae8b8"></div>Marketing & Sales</div>
+  </div>
+</div>
+
+<div id="tooltip"></div>
+<div id="hint">🖱 Drag to rotate &nbsp;·&nbsp; Scroll to zoom<br>Hover a card to highlight</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const columns = [
+  {
+    label: "Products & Finance I",
+    color: 0xe8c97a,
+    emissive: 0x5a4a1a,
+    items: [
+      "Agreement Management","Financial Instrument Management",
+      "Issued Device Management","Order Management",
+      "Trade Finance Management","Payment Management"
+    ]
+  },
+  {
+    label: "Products & Finance II",
+    color: 0xe8c97a,
+    emissive: 0x5a4a1a,
+    items: [
+      "Financial Plan Management","Investment Portfolio Management",
+      "Money Movement Management","Product Management",
+      "Trust Management","Collateral Management"
+    ]
+  },
+  {
+    label: "Operations & Support",
+    color: 0x7ab8e8,
+    emissive: 0x1a3a5a,
+    items: [
+      "Facility and Equipment Management","Human Capital Management",
+      "Information Management","Vendor And Supplier Management",
+      "Legal Support Management","Task Management",
+      "Intellectual Property Management","Identity Management"
+    ]
+  },
+  {
+    label: "Marketing & Sales",
+    color: 0x7ae8b8,
+    emissive: 0x1a5a3a,
+    items: [
+      "Brand Management","Campaign Management",
+      "Event Management","Market Management",
+      "Message Management","Loyalty Management",
+      "Lead Management","Offer Management","Sales Plan Management"
+    ]
+  }
+];
+
+// ─── SCENE ──────────────────────────────────────────────────────────────────
+const W = window.innerWidth, H = window.innerHeight;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0c14);
+scene.fog = new THREE.FogExp2(0x0a0c14, 0.018);
+
+const camera = new THREE.PerspectiveCamera(55, W/H, 0.1, 300);
+camera.position.set(0, 2, 22);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(W, H);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+document.body.appendChild(renderer.domElement);
+
+// Lights
+const ambient = new THREE.AmbientLight(0xffffff, 0.3);
+scene.add(ambient);
+const dirLight = new THREE.DirectionalLight(0xfff5e0, 1.2);
+dirLight.position.set(5, 10, 8);
+dirLight.castShadow = true;
+scene.add(dirLight);
+const fillLight = new THREE.PointLight(0x7ab8e8, 0.6, 40);
+fillLight.position.set(-10, 5, 5);
+scene.add(fillLight);
+
+// ─── CARDS ──────────────────────────────────────────────────────────────────
+const CARD_W = 3.2, CARD_H = 1.1, CARD_D = 0.12;
+const GAP_X = 3.8, GAP_Y = 1.55;
+const cards = [];
+const group = new THREE.Group();
+scene.add(group);
+
+// Grid of stars
+const starGeo = new THREE.BufferGeometry();
+const starVerts = [];
+for(let i=0; i<2000; i++){
+  starVerts.push((Math.random()-0.5)*200, (Math.random()-0.5)*100, (Math.random()-0.5)*100);
+}
+starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starVerts, 3));
+const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.08, transparent: true, opacity: 0.5 });
+scene.add(new THREE.Points(starGeo, starMat));
+
+// Canvas texture for card text
+function makeCardTexture(text, color) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 512; canvas.height = 180;
+  const ctx = canvas.getContext('2d');
+
+  // Background
+  ctx.fillStyle = '#00000000';
+  ctx.clearRect(0, 0, 512, 180);
+
+  // Rounded rect fill
+  const r = 28;
+  ctx.beginPath();
+  ctx.moveTo(r, 0);
+  ctx.lineTo(512-r, 0);
+  ctx.quadraticCurveTo(512, 0, 512, r);
+  ctx.lineTo(512, 180-r);
+  ctx.quadraticCurveTo(512, 180, 512-r, 180);
+  ctx.lineTo(r, 180);
+  ctx.quadraticCurveTo(0, 180, 0, 180-r);
+  ctx.lineTo(0, r);
+  ctx.quadraticCurveTo(0, 0, r, 0);
+  ctx.closePath();
+
+  const hexColor = '#' + color.toString(16).padStart(6, '0');
+  ctx.fillStyle = hexColor + '18';
+  ctx.fill();
+
+  // Border
+  ctx.strokeStyle = hexColor + 'aa';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  // Icon top-right
+  ctx.font = '22px serif';
+  ctx.fillStyle = hexColor + 'cc';
+  ctx.fillText('⊞', 468, 32);
+
+  // Text
+  ctx.font = 'bold 30px "Segoe UI", Arial, sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  // Word wrap
+  const words = text.split(' ');
+  const lines = [];
+  let line = '';
+  for(const w of words) {
+    const test = line ? line + ' ' + w : w;
+    if(ctx.measureText(test).width > 440 && line) {
+      lines.push(line); line = w;
+    } else { line = test; }
+  }
+  lines.push(line);
+  const lineH = 38;
+  const startY = 90 - ((lines.length-1) * lineH) / 2;
+  lines.forEach((l, i) => ctx.fillText(l, 256, startY + i * lineH));
+
+  return new THREE.CanvasTexture(canvas);
+}
+
+// Build cards
+columns.forEach((col, ci) => {
+  const totalH = col.items.length * GAP_Y;
+  const startY = totalH / 2 - GAP_Y / 2;
+  const xBase = (ci - (columns.length-1)/2) * GAP_X;
+
+  col.items.forEach((item, ri) => {
+    const geo = new THREE.BoxGeometry(CARD_W, CARD_H, CARD_D, 1, 1, 1);
+    const tex = makeCardTexture(item, col.color);
+
+    const mats = [
+      new THREE.MeshStandardMaterial({ color: col.color, emissive: col.emissive, roughness: 0.4, metalness: 0.3 }),
+      new THREE.MeshStandardMaterial({ color: col.color, emissive: col.emissive, roughness: 0.4, metalness: 0.3 }),
+      new THREE.MeshStandardMaterial({ color: col.color, emissive: col.emissive, roughness: 0.4, metalness: 0.3 }),
+      new THREE.MeshStandardMaterial({ color: col.color, emissive: col.emissive, roughness: 0.4, metalness: 0.3 }),
+      new THREE.MeshStandardMaterial({ map: tex, transparent: true, roughness: 0.5, metalness: 0.1 }),
+      new THREE.MeshStandardMaterial({ color: col.color, emissive: col.emissive, roughness: 0.4, metalness: 0.3 }),
+    ];
+
+    const mesh = new THREE.Mesh(geo, mats);
+    mesh.position.set(xBase, startY - ri * GAP_Y, 0);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    mesh.userData = { label: item, col: ci, row: ri, baseY: startY - ri * GAP_Y, color: col.color };
+    group.add(mesh);
+    cards.push(mesh);
+  });
+
+  // Column header plane
+  const hCanvas = document.createElement('canvas');
+  hCanvas.width = 512; hCanvas.height = 60;
+  const hCtx = hCanvas.getContext('2d');
+  hCtx.font = 'bold 22px "Segoe UI", Arial, sans-serif';
+  hCtx.fillStyle = '#' + col.color.toString(16).padStart(6,'0');
+  hCtx.textAlign = 'center';
+  hCtx.textBaseline = 'middle';
+  hCtx.fillText(col.label.toUpperCase(), 256, 30);
+  const hTex = new THREE.CanvasTexture(hCanvas);
+  const hGeo = new THREE.PlaneGeometry(CARD_W, 0.4);
+  const hMat = new THREE.MeshBasicMaterial({ map: hTex, transparent: true, depthWrite: false });
+  const hMesh = new THREE.Mesh(hGeo, hMat);
+  hMesh.position.set(xBase, startY + GAP_Y * 0.8, 0.07);
+  group.add(hMesh);
+});
+
+// ─── INTERACTION ─────────────────────────────────────────────────────────────
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+let hoveredCard = null;
+const tooltip = document.getElementById('tooltip');
+
+window.addEventListener('mousemove', e => {
+  mouse.x = (e.clientX / W) * 2 - 1;
+  mouse.y = -(e.clientY / H) * 2 + 1;
+});
+
+// Orbit
+let isDragging = false, prevMouse = {x:0, y:0};
+let rotX = 0.12, rotY = 0;
+let targetRotX = 0.12, targetRotY = 0;
+
+window.addEventListener('mousedown', e => { isDragging = true; prevMouse = {x: e.clientX, y: e.clientY}; });
+window.addEventListener('mouseup', () => isDragging = false);
+window.addEventListener('mousemove', e => {
+  if(!isDragging) return;
+  targetRotY += (e.clientX - prevMouse.x) * 0.005;
+  targetRotX += (e.clientY - prevMouse.y) * 0.005;
+  targetRotX = Math.max(-0.6, Math.min(0.6, targetRotX));
+  prevMouse = {x: e.clientX, y: e.clientY};
+});
+
+// Zoom
+let zoom = 22;
+window.addEventListener('wheel', e => {
+  zoom += e.deltaY * 0.02;
+  zoom = Math.max(8, Math.min(40, zoom));
+});
+
+// ─── ANIMATE ────────────────────────────────────────────────────────────────
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+
+  // Smooth rotation
+  rotX += (targetRotX - rotX) * 0.06;
+  rotY += (targetRotY - rotY) * 0.06;
+  group.rotation.x = rotX;
+  group.rotation.y = rotY;
+
+  // Gentle floating
+  cards.forEach((c, i) => {
+    c.position.y = c.userData.baseY + Math.sin(t * 0.6 + i * 0.4) * 0.04;
+  });
+
+  // Camera zoom
+  camera.position.z += (zoom - camera.position.z) * 0.06;
+
+  // Raycasting
+  raycaster.setFromCamera(mouse, camera);
+  const hits = raycaster.intersectObjects(cards);
+
+  if(hits.length > 0) {
+    const hit = hits[0].object;
+    if(hit !== hoveredCard) {
+      if(hoveredCard) {
+        hoveredCard.scale.set(1,1,1);
+        hoveredCard.material[4].color.setHex(0xffffff);
+      }
+      hoveredCard = hit;
+      hoveredCard.scale.set(1.06, 1.06, 1.4);
+      tooltip.textContent = hit.userData.label;
+      tooltip.classList.add('show');
+    }
+  } else {
+    if(hoveredCard) {
+      hoveredCard.scale.set(1,1,1);
+      hoveredCard = null;
+      tooltip.classList.remove('show');
+    }
+  }
+
+  // Subtle auto-rotate when idle
+  if(!isDragging) {
+    targetRotY += 0.0008;
+  }
+
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>
