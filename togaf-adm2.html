@@ -1,0 +1,1139 @@
+
+peux tu produire des modélisations 3D ?
+
+26 févr.
+En tant qu'IA textuelle, je ne peux pas générer directement des fichiers 3D natifs comme des .blend, .obj, ou .stl de manière visuelle. Cependant, voici ce que je peux faire :
+
+Ce que je suis capable de produire :
+
+Code 3D interactif (Three.js, WebGL) — des scènes 3D qui s'affichent directement dans le navigateur
+Scripts de modélisation pour des logiciels comme Blender (en Python/script), OpenSCAD (code génératif pour formes géométriques), ou FreeCAD
+Fichiers STL simples en générant le code décrivant la géométrie
+Visualisations 3D avec des bibliothèques comme Plotly ou Matplotlib (surfaces, volumes, graphes 3D)
+Ce que je ne peux pas faire :
+
+Modélisation organique/sculpturale avancée
+Rendu photoréaliste
+Générer des images 3D directement
+Tu as un projet en tête ? Dis-moi ce que tu veux créer (un objet, une architecture, une visualisation de données...) et je pourrai te proposer l'approche la plus adaptée !
+
+Transformer une image statique en Code 3D interactif pour un navigateur
+
+26 févr.
+Bonne idée ! Pour que je fasse ça au mieux, quelques précisions :
+
+BIAN Capabilities Map.pdf
+pdf
+
+26 févr.
+Je vois que tu as partagé une carte des capacités BIAN (Banking Industry Architecture Network). Je vais créer une visualisation 3D interactive de cette carte !
+
+
+Check available skills for frontend design
+Check available skills for frontend design
+Je vais créer une visualisation 3D interactive de la BIAN Capabilities Map avec Three.js — les tuiles flottent dans l'espace, organisées par colonnes, avec rotation et interactions au survol.
+
+
+Fichier créé, lu un fichier
+Fichier créé, lu un fichier
+Voici ta BIAN Capabilities Map en 3D interactive ! 🎉
+
+Ce que tu peux faire :
+
+🖱 Glisser pour faire pivoter la scène dans tous les sens
+🖱 Scroll pour zoomer / dézoomer
+✨ Survoler une carte pour la mettre en évidence et afficher son nom
+La scène tourne doucement automatiquement quand tu ne l'utilises pas
+Organisation : Les 4 colonnes de la carte BIAN sont représentées en 3D avec un code couleur — or pour Products & Finance, bleu pour Operations & Support, vert pour Marketing & Sales — le tout sur fond spatial avec des étoiles et du brouillard volumétrique.
+
+Bian 3d map
+Code · HTML 
+Comment integrer cette vue 3D dans confluence ?
+
+26 févr.
+
+Web recherché
+Web recherché
+
+Voici les 3 approches possibles, du plus simple au plus robuste, selon ta version de Confluence :
+
+🟡 Option 1 — Confluence Data Center / Server (la plus simple)
+Le macro HTML natif est disponible. Il suffit de coller directement le code HTML de ta vue 3D.
+
+Étapes :
+
+Édite ta page Confluence
+Tape /html dans l'éditeur → sélectionne HTML macro
+Colle le contenu entier du fichier bian_3d_map.html
+Publie la page ✅
+🔵 Option 2 — Confluence Cloud (approche recommandée)
+La macro HTML native n'est pas disponible en Confluence Cloud. 
+Atlassian Support
+ Il faut passer par une des deux solutions :
+
+A) Héberger le fichier et l'intégrer via iFrame
+
+Héberge le fichier HTML sur un serveur (GitHub Pages, Netlify, S3, ou ton intranet)
+Dans Confluence, tape /iframe
+Colle l'URL de ton fichier hébergé
+Ajuste la hauteur (recommandé : 600px)
+B) Utiliser un add-on Marketplace
+
+HTML Macro for Confluence (disponible sur l'Atlassian Marketplace) accepte du HTML, CSS et JavaScript standard. 
+Narva
+ C'est la solution la plus propre pour du contenu interactif comme ta vue 3D.
+
+Installe l'app : marketplace.atlassian.com/apps/1221472
+Tape /html dans l'éditeur
+Colle le code de ta vue 3D directement
+🟢 Option 3 — GitHub Pages (gratuit, rapide)
+C'est la méthode la plus fiable car elle ne dépend d'aucun add-on :
+
+Crée un repo GitHub (même privé avec GitHub Pro)
+Active GitHub Pages dans les settings
+Upload bian_3d_map.html → ton URL sera https://tonuser.github.io/repo/bian_3d_map.html
+Dans Confluence Cloud, utilise le macro iFrame natif avec cette URL
+📐 Résumé rapide
+Version Confluence	Solution	Coût
+Data Center / Server	Macro HTML natif	Gratuit
+Cloud	Add-on HTML Macro	~10$/mois
+Cloud	Hébergement externe + iFrame	Gratuit (GitHub Pages)
+Tu veux que je génère un code d'embed <iframe> prêt à coller, ou que j'adapte le fichier pour une plateforme d'hébergement spécifique ?
+
+Comment creer un site internet statique sur github ?
+
+26 févr.
+Voici un guide complet, étape par étape :
+
+1️⃣ Créer un compte GitHub
+Va sur github.com → Sign up → crée ton compte gratuitement.
+
+2️⃣ Créer un nouveau repository
+Clique sur le + en haut à droite → New repository
+Nomme-le exactement : tonusername.github.io (remplace tonusername par ton pseudo GitHub)
+Coche "Public"
+Clique "Create repository"
+💡 Ce nom spécial active automatiquement GitHub Pages sur ce repo.
+
+3️⃣ Uploader ton fichier HTML
+Dans le repo, clique "Add file" → "Upload files"
+Glisse-dépose ton fichier bian_3d_map.html
+Renomme-le index.html pour qu'il soit la page d'accueil
+Clique "Commit changes"
+4️⃣ Activer GitHub Pages
+Va dans Settings (onglet du repo)
+Dans le menu gauche → Pages
+Sous Branch, sélectionne main → dossier / (root)
+Clique Save
+5️⃣ Accéder à ton site
+Après 1-2 minutes, ton site est accessible à l'adresse :
+
+https://tonusername.github.io
+Et ta vue 3D BIAN sera accessible à cette même URL — prête à être intégrée dans Confluence via un iFrame.
+
+🔗 Intégration Confluence ensuite
+Une fois en ligne, dans Confluence :
+
+/iframe → https://tonusername.github.io → hauteur 650px
+⚡ Astuce bonus — Plusieurs fichiers sur le même site
+Tu peux héberger plusieurs pages, par exemple :
+
+https://tonusername.github.io/              ← index.html
+https://tonusername.github.io/bian-map     ← bian_3d_map.html
+https://tonusername.github.io/autre-projet ← autre.html
+Il suffit d'uploader chaque fichier dans le repo. Veux-tu que je t'aide à structurer ça, ou à adapter le fichier HTML pour qu'il soit parfaitement optimisé pour GitHub Pages ?
+
+Les plus populaires - 1 sur 1.png
+Transformer cette image en code 3D interactif
+
+26 févr.
+Superbe maison en pierre ! Je vais créer une scène 3D interactive qui restitue son architecture — façade en pierre, toit en tuiles, fenêtres noires, terrasse en bois et jardin.
+
+
+Read frontend design skill
+Read frontend design skill
+Voici ce que je vais modéliser d'après l'image :
+
+🪨 Façade en pierre calcaire texturée (mur de blocs)
+🪟 4 fenêtres à chassis noirs + 1 porte noire avec marches
+🏠 Toit en tuiles sombres avec 2 cheminées
+🪵 Terrasse en lame de bois gris
+🌿 Jardin avec pelouse, bacs de plantes, palmier
+☀️ Éclairage soleil rasant (lumière chaude d'après-midi)
+
+Fichier créé, lu un fichier
+Fichier créé, lu un fichier
+Voici ta maison en pierre en 3D interactive ! 🏠✨
+
+J'ai modélisé fidèlement depuis ta photo :
+
+🪨 Façade en pierre calcaire avec joints de mortier et variations de couleur bloc par bloc
+🪟 4 fenêtres à chassis noirs avec vitrage semi-transparent et meneaux
+🚪 Porte noire avec encadrement blanc, marches et poignée dorée
+🏠 Toit en tuiles sombres avec les 2 cheminées caractéristiques
+💡 2 lanternes murales avec lumière ponctuelle
+🪵 Terrasse en lames composites grises
+🌿 Jardin : pot bleu, palmier, plantes grimpantes sur les murs, arrosoirs
+☀️ Éclairage solaire chaud avec ciel dégradé
+4 vues disponibles via les boutons :
+
+🏠 Face · 📐 Angle · 🔭 Dessus · 🌿 Jardin
+Maison 3d
+Code · HTML 
+IMG_9354.jpeg
+Transformer cette photo en 3D interactif
+
+08:44
+Super cuisine ! Je vais modéliser l'intérieur en 3D avec tous les détails visibles sur la photo.
+
+Ce que je vais recréer :
+
+🪟 Fenêtre centrale avec lumière naturelle
+🍳 Plan de travail en L avec façades blanches
+🧊 Réfrigérateur blanc avec écritures ardoise
+💡 Suspension industrielle centrale
+🌿 Plantes sur les meubles hauts
+🫙 Plan de travail chargé d'accessoires
+🪑 Îlot central sombre
+
+Fichier créé, lu un fichier
+Fichier créé, lu un fichier
+Voici ta cuisine en 3D interactive ! 🍳✨
+
+J'ai modélisé fidèlement depuis ta photo :
+
+🪟 Fenêtre centrale avec lumière naturelle et rayons qui éclairent la pièce
+🍳 Plan de travail en L — façades blanches, plan anthracite, poignées noires
+🧊 Réfrigérateur blanc avec les écritures ardoise "le frigo / le congélo"
+💡 Suspension industrielle avec balancement subtil animé
+🌿 Plantes sur les meubles hauts et étagères
+☕ Machine à café + micro-ondes + tasse rouge
+🫙 Bouilloire SMEG, bloc couteaux, planches à découper, bocaux
+🍽 Îlot central avec pot à ustensiles et spatules en bois
+🪵 Parquet marron avec lignes de lames
+5 vues disponibles :
+
+🚪 Entrée · 🪟 Fenêtre · 🧊 Frigo · 🍽 Îlot · 🔭 Dessus
+Cuisine 3d
+Code · HTML 
+faire une représentation 3D interactive de l'ADM de TOGAF en détaillant les phases, les livrables, les roles et responsabilités
+
+10:19
+Je vais créer une visualisation 3D complète et interactive de l'ADM TOGAF — c'est un projet riche, laisse-moi d'abord lire le skill frontend pour produire quelque chose d'exceptionnel.
+
+
+Read frontend design skill for best practices
+Read frontend design skill for best practices
+Vision : Un cycle ADM en 3D — les phases orbitent comme des planètes autour d'un noyau central "Requirements Management". Cliquer sur une phase fait exploser un panneau détaillé avec livrables, rôles et responsabilités. Esthétique "blueprint architectural futuriste" — fond sombre, lignes bleu électrique, typographie technique.
+
+
+Fichier créé, lu un fichier
+Fichier créé, lu un fichier
+Voici ton TOGAF ADM en 3D interactif ! 🏛️✨
+
+Ce que contient la visualisation
+9 phases en orbite autour du nœud central Requirements Management :
+
+🔵 Preliminary — Cadrage & Principes
+🟣 Phase A — Architecture Vision
+🟡 Phases B, C, D — Business / SI / Technology Architecture
+🔴 Phases E & F — Opportunities, Solutions & Migration Planning
+🟢 Phases G & H — Gouvernance & Change Management
+🩵 Centre — Requirements Management (nœud pulsant)
+Clique sur n'importe quelle phase pour ouvrir le panneau détaillé avec :
+
+📋 Tous les livrables officiels TOGAF 10
+👥 Rôles & Responsabilités détaillés (4 rôles par phase)
+Navigation
+Action	Effet
+🖱 Glisser	Orbiter autour du cycle
+🖱 Scroll	Zoomer / dézoomer
+👆 Cliquer une phase	Panneau détaillé
+✕	Fermer le panneau
+Togaf adm 3d
+Code · HTML 
+Refaire le schéma précédent avec un fond clair, les roles représentés par des avatars, les livrables par la forme d'un dossier contenant la description des livrables.
+
+10:38
+
+Read frontend design skill
+Read frontend design skill
+Vision : Fond blanc/crème élégant, style "architectural blueprint" inversé — lignes fines anthracite sur papier. Les phases orbitent toujours en 3D. Le panneau latéral affiche les avatars SVG pour les rôles et des icônes dossier 3D cliquables pour chaque livrable qui s'ouvrent avec la description.
+
+
+Fichier créé, lu un fichier
+Fichier créé, lu un fichier
+Voici la version redessinée ! ☀️
+
+Ce qui change par rapport à la version précédente
+🎨 Fond clair — papier crème avec grille de points subtile, typographie DM Serif Display + DM Mono, ambiance "blueprint architectural élégant"
+
+👤 Rôles avec avatars — chaque rôle est représenté par un avatar SVG coloré avec les initiales, sur fond de couleur distinctive, avec le nom et la responsabilité détaillée
+
+📁 Livrables sous forme de dossiers — chaque livrable est une carte-dossier avec :
+
+Une languette colorée en haut (couleur de la phase)
+Une icône dossier SVG réaliste
+Un clic sur le dossier l'ouvre et révèle la description complète du livrable
+Les descriptions couvrent 50+ livrables TOGAF 10
+🌟 Autres améliorations
+
+Hexagones en relief avec ombres portées réalistes
+Sol en parquet/béton avec grille
+Lumière directionnelle animée (soleil qui tourne lentement)
+Curseur pointeur sur les phases interactives
+Togaf adm 3d light
+Code · HTML 
+Refaire le schéma en respectant le sans horaire de rotation des phases de l'ADM
+
+11:22
+Je vais reprendre le schéma en respectant scrupuleusement l'ordre officiel des phases TOGAF ADM dans le sens horaire : Preliminary → A → B → C → D → E → F → G → H, avec Requirements Management au centre.
+
+
+Fichier créé, lu un fichier
+Fichier créé, lu un fichier
+Voilà la version corrigée avec le sens horaire officiel TOGAF ! ✅
+
+Ce qui a été corrigé et ajouté
+🕐 Ordre horaire strict — les 9 phases sont espacées exactement de 40° (360°/9) dans le sens des aiguilles d'une montre :
+
+12h → Preliminary
+1h20 → Phase A (Architecture Vision)
+2h40 → Phase B (Business Architecture)
+4h00 → Phase C (Information Systems)
+5h20 → Phase D (Technology Architecture)
+6h40 → Phase E (Opportunities & Solutions)
+8h00 → Phase F (Migration Planning)
+9h20 → Phase G (Implementation Governance)
+10h40 → Phase H (Architecture Change Mgmt)
+➤ Flèches directionnelles entre chaque phase pour indiquer visuellement le sens de progression horaire
+
+↻ Rotation automatique du groupe dans le sens horaire (cohérent avec l'ADM)
+
+◀ Navigation phase dans le panneau latéral — indique la phase précédente et suivante dans le cycle
+
+⟳ Indicateur de sens en haut de l'écran rappelant l'ordre officiel des phases
+
+Togaf adm 3d clockwise
+Code · HTML 
+refaire le schéma en supprimant l'indicateur de sens et en positionnant la phase A à 12 et poursuivre pour les autres phases dans le sens horaire, ne pas inclure la phase préliminaire dans le cycle mais la positionner à l'exterieur au dessus de la phase A
+
+11:32
+
+
+
+
+Claude est une IA et peut faire des erreurs. Veuillez vérifier les réponses.
+Togaf adm 3d clockwise · HTML
+Copier
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOGAF ADM — 3D Interactive</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f1eb;
+  --ink: #1a1a2e;
+  --ink2: #3a3a5c;
+  --ink3: #6b6b8a;
+  --border: rgba(26,26,46,0.12);
+  --shadow: rgba(26,26,46,0.10);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+body::before {
+  content:''; position:fixed; inset:0;
+  background-image: radial-gradient(circle, rgba(26,26,46,0.10) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events:none; z-index:0;
+}
+canvas { display:block; position:relative; z-index:1; }
+
+#header {
+  position:fixed; top:0; left:0; right:0; z-index:20;
+  padding:13px 26px;
+  display:flex; justify-content:space-between; align-items:center;
+  background:linear-gradient(to bottom, rgba(244,241,235,0.98) 75%, transparent);
+  border-bottom:1px solid var(--border);
+}
+#logo { font-family:'DM Serif Display'; font-size:19px; color:var(--ink); }
+#logo span { color:#2563eb; }
+#tagline { font-family:'DM Mono'; font-size:10px; color:var(--ink3); letter-spacing:0.12em; margin-top:2px; }
+#badge {
+  font-family:'DM Mono'; font-size:10px; letter-spacing:0.15em;
+  color:#2563eb; background:rgba(37,99,235,0.08);
+  border:1px solid rgba(37,99,235,0.22); padding:5px 14px; border-radius:20px;
+}
+
+/* ── CLOCK DIRECTION INDICATOR ── */
+#clock-arrow {
+  position:fixed; top:70px; left:50%; transform:translateX(-50%);
+  font-family:'DM Mono'; font-size:10px; color:var(--ink3);
+  letter-spacing:0.12em; z-index:20;
+  display:flex; align-items:center; gap:8px;
+  background:rgba(244,241,235,0.88); border:1px solid var(--border);
+  padding:5px 14px; border-radius:20px;
+  backdrop-filter:blur(8px);
+}
+.arrow-svg { animation: spin-cw 4s linear infinite; }
+@keyframes spin-cw { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+/* ── PANEL ── */
+#panel {
+  position:fixed; right:0; top:0; bottom:0; width:420px; z-index:30;
+  background:#faf9f5;
+  border-left:1px solid var(--border);
+  box-shadow:-8px 0 40px var(--shadow);
+  transform:translateX(100%);
+  transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  overflow-y:auto;
+}
+#panel.open { transform:translateX(0); }
+#panel-inner { padding:68px 26px 60px; }
+#panel-close {
+  position:sticky; top:12px; float:right; margin-bottom:8px;
+  width:32px; height:32px; border-radius:50%;
+  background:rgba(26,26,46,0.07); border:1px solid var(--border);
+  color:var(--ink2); display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:14px; transition:all 0.2s; z-index:5;
+}
+#panel-close:hover { background:rgba(26,26,46,0.14); }
+
+.phase-tag {
+  display:inline-block; font-family:'DM Mono'; font-size:10px; letter-spacing:0.2em;
+  padding:4px 13px; border-radius:3px; margin-bottom:13px; text-transform:uppercase;
+}
+.panel-title { font-family:'DM Serif Display'; font-size:28px; color:var(--ink); margin-bottom:5px; }
+.panel-sub { font-family:'DM Mono'; font-size:11px; color:var(--ink3); letter-spacing:0.1em; margin-bottom:9px; }
+.panel-desc { font-size:13px; color:var(--ink2); line-height:1.75; margin-bottom:24px; }
+
+.section-label {
+  font-family:'DM Mono'; font-size:9px; letter-spacing:0.28em; text-transform:uppercase;
+  color:var(--ink3); margin-bottom:13px;
+  display:flex; align-items:center; gap:8px;
+  padding-bottom:7px; border-bottom:1px solid var(--border);
+}
+.section-label::before { content:''; width:18px; height:1px; background:currentColor; flex-shrink:0; }
+
+.folders-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:28px; }
+.folder-card {
+  position:relative; cursor:pointer;
+  border-radius:6px; overflow:hidden;
+  border:1px solid var(--border);
+  transition:all 0.22s; background:#fff;
+  box-shadow:0 2px 8px var(--shadow);
+}
+.folder-card:hover { transform:translateY(-2px); box-shadow:0 6px 18px var(--shadow); }
+.folder-tab { height:9px; width:52%; position:relative; top:1px; left:9px; border-radius:4px 4px 0 0; }
+.folder-body { padding:9px 10px 10px; }
+.folder-icon-row { display:flex; align-items:center; gap:6px; margin-bottom:3px; }
+.folder-name { font-size:11px; font-weight:600; color:var(--ink); line-height:1.3; }
+.folder-desc {
+  display:none; font-size:11px; color:var(--ink3);
+  line-height:1.6; margin-top:6px; padding-top:6px;
+  border-top:1px dashed var(--border); font-family:'DM Mono';
+}
+.folder-card.open-folder .folder-desc { display:block; }
+.folder-toggle { position:absolute; top:10px; right:8px; font-size:10px; color:var(--ink3); transition:transform 0.2s; }
+.folder-card.open-folder .folder-toggle { transform:rotate(90deg); }
+
+.roles-list { display:flex; flex-direction:column; gap:10px; }
+.role-row {
+  display:flex; gap:13px; align-items:flex-start;
+  padding:11px 13px; border-radius:8px;
+  background:#fff; border:1px solid var(--border);
+  box-shadow:0 1px 5px var(--shadow); transition:all 0.2s;
+}
+.role-row:hover { box-shadow:0 4px 14px var(--shadow); transform:translateX(2px); }
+.role-name { font-size:13px; font-weight:700; color:var(--ink); margin-bottom:2px; }
+.role-resp { font-size:11.5px; color:var(--ink3); line-height:1.6; }
+
+#legend {
+  position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
+  display:flex; gap:14px; z-index:20;
+  background:rgba(244,241,235,0.92); border:1px solid var(--border);
+  padding:8px 20px; border-radius:28px;
+  box-shadow:0 4px 20px var(--shadow); backdrop-filter:blur(10px);
+  flex-wrap:wrap; justify-content:center; max-width:680px;
+}
+.leg { display:flex; align-items:center; gap:5px; font-size:10.5px; color:var(--ink3); }
+.leg-dot { width:8px; height:8px; border-radius:50%; }
+
+#hint {
+  position:fixed; bottom:58px; left:50%; transform:translateX(-50%);
+  font-family:'DM Mono'; font-size:10px; color:var(--ink3);
+  letter-spacing:0.1em; pointer-events:none; z-index:20;
+  white-space:nowrap;
+}
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div>
+    <div id="logo">TOGAF <span>ADM</span> Cycle</div>
+    <div id="tagline">ARCHITECTURE DEVELOPMENT METHOD · SENS HORAIRE · INTERACTIVE 3D</div>
+  </div>
+  <div id="badge">TOGAF® 10 EDITION</div>
+</div>
+
+<div id="clock-arrow">
+  <svg class="arrow-svg" width="14" height="14" viewBox="0 0 14 14">
+    <circle cx="7" cy="7" r="5.5" stroke="#2563eb" stroke-width="1.2" fill="none"/>
+    <path d="M7 2.5 A4.5 4.5 0 1 1 3.5 10.5" stroke="#2563eb" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    <polygon points="2.5,9.5 4.5,12 5.5,9" fill="#2563eb"/>
+  </svg>
+  SENS HORAIRE : Preliminary → A → B → C → D → E → F → G → H
+</div>
+
+<div id="panel">
+  <div id="panel-inner">
+    <div id="panel-close" onclick="closePanel()">✕</div>
+    <div id="panel-content"></div>
+  </div>
+</div>
+
+<div id="hint">🖱 GLISSER POUR ORBITER  ·  MOLETTE POUR ZOOMER  ·  CLIQUER UNE PHASE POUR EXPLORER</div>
+
+<div id="legend">
+  <div class="leg"><div class="leg-dot" style="background:#64748b"></div>Preliminary</div>
+  <div class="leg"><div class="leg-dot" style="background:#7c3aed"></div>A · Vision</div>
+  <div class="leg"><div class="leg-dot" style="background:#d97706"></div>B · Business</div>
+  <div class="leg"><div class="leg-dot" style="background:#ea580c"></div>C · Info Systems</div>
+  <div class="leg"><div class="leg-dot" style="background:#dc2626"></div>D · Technology</div>
+  <div class="leg"><div class="leg-dot" style="background:#be185d"></div>E · Opportunities</div>
+  <div class="leg"><div class="leg-dot" style="background:#0284c7"></div>F · Migration</div>
+  <div class="leg"><div class="leg-dot" style="background:#059669"></div>G · Governance</div>
+  <div class="leg"><div class="leg-dot" style="background:#16a34a"></div>H · Change Mgmt</div>
+  <div class="leg"><div class="leg-dot" style="background:#0891b2"></div>⊙ Requirements</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ══════════════════════════════════════════════════════════════════════
+// TOGAF ADM — phases dans le sens HORAIRE
+// En vue de dessus, 12h = haut = angle 0 sur le cercle trigonométrique
+// Sens horaire signifie que l'angle augmente dans le sens des aiguilles
+//
+// On place Preliminary à 12h (haut) puis on tourne dans le sens horaire :
+//   Preliminary → 0°
+//   A           → 40°   (= 360/9 ≈ 40°)
+//   B           → 80°
+//   C           → 120°
+//   D           → 160°
+//   E           → 200°
+//   F           → 240°
+//   G           → 280°
+//   H           → 320°
+//
+// En THREE.js, pour un sens horaire vu de dessus :
+//   x = sin(angle_deg * π/180) * R
+//   z = cos(angle_deg * π/180) * R
+// L'angle augmentant dans le sens horaire en vue plan.
+// ══════════════════════════════════════════════════════════════════════
+
+const STEP = 360 / 9; // 40° entre chaque phase
+
+const ADM_PHASES = [
+  // ── PRELIMINARY ── 12h = 0°
+  {
+    id:'PRELIM', label:'Preliminary', sub:'Cadrage & Principes',
+    color:0x64748b, hex:'#64748b', bg:'#f1f5f9', cwAngle:0,
+    desc:'Définit le cadre et les principes architecturaux. Prépare l\'organisation à entreprendre des projets d\'architecture d\'entreprise de manière structurée et gouvernée.',
+    deliverables:['Principes d\'Architecture','Cadre d\'Architecture organisationnel','Repository d\'Architecture','Charte de gouvernance','Catalogue des parties prenantes','Outils et techniques sélectionnés'],
+    delivDescs:['Ensemble de règles fondamentales guidant l\'utilisation et le déploiement des ressources IT à travers l\'organisation.','Définit comment l\'architecture sera développée, gérée et utilisée, incluant les processus, rôles et outils.','Référentiel central stockant tous les artefacts architecturaux, modèles, patterns et décisions.','Document fondateur établissant les règles de gouvernance, mécanismes de décision et processus de revue.','Inventaire exhaustif des parties prenantes, leurs intérêts, préoccupations et niveaux d\'influence.','Sélection des outils de modélisation (ArchiMate, UML) et plateformes de repository à utiliser.'],
+    roles:[
+      {name:'Chief Architect / DSIO', initials:'CA', resp:'Sponsor exécutif — valide les principes, alloue le budget. Définit l\'ambition architecturale.'},
+      {name:'Architecture Board', initials:'AB', resp:'Valide le cadre de gouvernance, approuve les principes et assure l\'alignement stratégique.'},
+      {name:'Enterprise Architect', initials:'EA', resp:'Élabore les principes, sélectionne les outils, définit le repository et pilote le cadre.'},
+      {name:'RH & Change Management', initials:'RH', resp:'Accompagne la conduite du changement et la formation aux pratiques d\'architecture.'}
+    ]
+  },
+  // ── PHASE A ── 1h20 = 40°
+  {
+    id:'A', label:'Phase A', sub:'Architecture Vision',
+    color:0x7c3aed, hex:'#7c3aed', bg:'#ede9fe', cwAngle:STEP*1,
+    desc:'Définit le périmètre, les contraintes et les attentes du cycle ADM. Crée la vision architecturale partagée et obtient l\'approbation formelle pour engager les travaux d\'architecture.',
+    deliverables:['Statement of Architecture Work','Architecture Vision','Refined Business Principles','Business Scenarios','Stakeholder Map & Comm. Plan','Risk Register initial','Request for Architecture Work'],
+    delivDescs:['Contrat définissant le périmètre des travaux, ressources allouées, planning et critères d\'acceptation.','Description synthétique de l\'architecture cible et de la valeur apportée aux parties prenantes.','Principes métier affinés guidant les décisions d\'architecture et d\'investissement technologique.','Scénarios décrivant les besoins métier, acteurs, rôles et exigences dans leur contexte opérationnel.','Cartographie des parties prenantes avec leur influence/intérêt et le plan de communication associé.','Catalogue des risques architecturaux identifiés avec probabilité, impact et mesures d\'atténuation.','Demande formelle initiant le cycle ADM, décrivant le contexte, les enjeux et les attentes.'],
+    roles:[
+      {name:'Sponsor / CODIR', initials:'SP', resp:'Approuve le Statement of Architecture Work, valide la vision et alloue le budget projet.'},
+      {name:'Lead Enterprise Architect', initials:'LE', resp:'Produit la vision architecturale, conduit les ateliers de cadrage, gère les parties prenantes clés.'},
+      {name:'Business Analyst', initials:'BA', resp:'Analyse les besoins métier, rédige les business scenarios, identifie contraintes et opportunités.'},
+      {name:'Architecture Board', initials:'AB', resp:'Valide la conformité de la vision avec les principes établis en phase Preliminary.'}
+    ]
+  },
+  // ── PHASE B ── 2h40 = 80°
+  {
+    id:'B', label:'Phase B', sub:'Business Architecture',
+    color:0xd97706, hex:'#d97706', bg:'#fef3c7', cwAngle:STEP*2,
+    desc:'Développe l\'Architecture Métier cible pour soutenir la vision architecturale. Décrit les processus, capacités, fonctions, rôles et flux d\'information à l\'état cible.',
+    deliverables:['Business Architecture Document','Organization/Actor Catalog','Driver/Goal/Objective Catalog','Business Service/Function Catalog','Business Process Catalog','Business Interaction Matrix','Actor/Role Matrix','Capability Assessment','Gap Analysis (Business)'],
+    delivDescs:['Documentation complète de l\'architecture métier cible : processus, capacités, flux et structure organisationnelle.','Catalogue de toutes les entités organisationnelles, acteurs internes/externes et leurs rôles dans les processus.','Catalogue des drivers stratégiques, objectifs métier et KPIs pour justifier et prioriser les décisions.','Inventaire des services et fonctions métier exposés en interne ou externe, avec caractéristiques et SLA.','Catalogue détaillé des processus métier, déclencheurs d\'événements, contrôles associés et produits générés.','Matrice représentant les interactions entre unités organisationnelles et fonctions/services métier.','Mapping entre les acteurs (humains ou systèmes) et les rôles qu\'ils jouent dans les processus.','Évaluation des capacités métier existantes vs cibles, identifiant les gaps à combler pour la vision.','Analyse formelle des écarts entre l\'architecture métier existante (baseline) et l\'architecture cible.'],
+    roles:[
+      {name:'Business Architect', initials:'BZ', resp:'Modélise les processus et capacités métier, anime les ateliers, produit les catalogues.'},
+      {name:'Process Owner', initials:'PO', resp:'Valide les processus modélisés, identifie les besoins d\'évolution et contraintes opérationnelles.'},
+      {name:'Enterprise Architect', initials:'EA', resp:'Assure la cohérence entre la vision (Phase A) et l\'architecture métier produite.'},
+      {name:'RH / Organisation', initials:'RH', resp:'Fournit les informations organisationnelles, valide les rôles et responsabilités modélisés.'}
+    ]
+  },
+  // ── PHASE C ── 4h = 120°
+  {
+    id:'C', label:'Phase C', sub:'Information Systems Arch.',
+    color:0xea580c, hex:'#ea580c', bg:'#fff7ed', cwAngle:STEP*3,
+    desc:'Développe l\'Architecture des Systèmes d\'Information (données et applications) pour soutenir l\'Architecture Métier. Couvre les dimensions Data et Application.',
+    deliverables:['Data Architecture Document','Application Architecture Document','Data Entity/Component Catalog','Application Portfolio Catalog','Interface Catalog','Application/Data Matrix','Application Communication Diagram','Data Dissemination Diagram','Gap Analysis (SI)'],
+    delivDescs:['Documentation de l\'architecture des données : modèles conceptuels, logiques, règles de gestion et gouvernance.','Documentation du portefeuille applicatif cible, interactions entre applications et patterns d\'intégration.','Catalogue des entités de données et composants avec leurs attributs, relations et propriétaires.','Inventaire de toutes les applications du SI avec caractéristiques, dépendances et criticité métier.','Catalogue des interfaces entre applications : protocoles, formats, fréquences, SLA et responsabilités.','Matrice montrant quelles applications créent, lisent, mettent à jour ou suppriment quelles données (CRUD).','Diagramme représentant les flux de communication entre applications et services dans l\'architecture cible.','Représentation de la distribution et du flux des entités de données à travers les composants applicatifs.','Analyse des écarts entre le SI existant et le SI cible pour les dimensions données et applicatives.'],
+    roles:[
+      {name:'Data Architect', initials:'DA', resp:'Modélise les entités de données, définit les règles de gestion, produit les diagrammes de flux.'},
+      {name:'Application Architect', initials:'AA', resp:'Cartographie le portefeuille applicatif, modélise les interfaces et flux entre applications.'},
+      {name:'Domain Experts (métier)', initials:'DE', resp:'Valident les modèles de données et confirment les besoins applicatifs par domaine fonctionnel.'},
+      {name:'Security Architect', initials:'SA', resp:'Intègre les contraintes de sécurité dans les architectures données et applicatives définies.'}
+    ]
+  },
+  // ── PHASE D ── 5h20 = 160°
+  {
+    id:'D', label:'Phase D', sub:'Technology Architecture',
+    color:0xdc2626, hex:'#dc2626', bg:'#fee2e2', cwAngle:STEP*4,
+    desc:'Décrit l\'architecture technique (infrastructure, middleware, réseaux, plateformes) qui supporte les architectures métier et systèmes d\'information définies dans les phases précédentes.',
+    deliverables:['Technology Architecture Document','Technology Standards Catalog','Technology Portfolio Catalog','Application/Technology Matrix','Environments & Locations Diagram','Platform Decomposition Diagram','Processing Diagram','Network Connectivity Diagram','Gap Analysis (Technology)'],
+    delivDescs:['Documentation de l\'architecture technique : plateformes, middleware, réseaux, environnements et standards.','Catalogue des standards technologiques adoptés (langages, protocoles, produits) et leur cycle de vie.','Inventaire des composants technologiques déployés avec leur statut (strategic/tolerated/eliminate).','Mapping entre les applications du SI et les composants technologiques sur lesquels elles s\'appuient.','Représentation des environnements IT (prod/staging/dev) et leur distribution géographique.','Décomposition hiérarchique des plateformes technologiques en composants et services élémentaires.','Diagramme représentant la répartition du traitement entre les nœuds de l\'infrastructure IT.','Architecture réseau détaillant connexions, protocoles, bandes passantes et zones de sécurité.','Analyse des écarts entre l\'infrastructure existante et l\'infrastructure cible nécessaire.'],
+    roles:[
+      {name:'Technical Architect / Infra', initials:'TA', resp:'Conçoit l\'architecture des plateformes, réseaux et middlewares. Produit les diagrammes d\'infrastructure.'},
+      {name:'Cloud Architect', initials:'CL', resp:'Définit la stratégie cloud, les patterns d\'hébergement et les services managés à adopter.'},
+      {name:'Security & Compliance', initials:'SC', resp:'S\'assure que l\'architecture technique respecte les politiques de sécurité et de conformité.'},
+      {name:'Operations / SRE', initials:'SR', resp:'Valide la faisabilité opérationnelle, les SLA et les contraintes de MCO.'}
+    ]
+  },
+  // ── PHASE E ── 6h40 = 200°
+  {
+    id:'E', label:'Phase E', sub:'Opportunities & Solutions',
+    color:0xbe185d, hex:'#be185d', bg:'#fce7f3', cwAngle:STEP*5,
+    desc:'Identifie les projets, packages de travail et solutions pour réaliser l\'architecture cible. Définit la première version de la feuille de route architecturale de transition.',
+    deliverables:['Architecture Roadmap (initial)','Implementation & Migration Strategy','Work Package Portfolio','Transition Architecture(s)','Architecture Building Blocks (ABBs)','Solution Building Blocks (SBBs)','Implementation Factor Assessment','Gap/Solution Matrix'],
+    delivDescs:['Feuille de route initiale des évolutions architecturales séquencées dans le temps avec jalons et dépendances.','Stratégie définissant l\'approche de migration (big bang, phased, parallel) et les principes directeurs.','Portefeuille des packages de travail identifiés pour réaliser les transitions architecturales planifiées.','États architecturaux intermédiaires pour passer progressivement de l\'architecture existante à la cible.','Blocs fonctionnels réutilisables décrivant les capacités nécessaires, indépendamment d\'un produit.','Composants de solution spécifiques (produits, technologies) implémentant les ABBs définis.','Évaluation des facteurs d\'implémentation : risques, hypothèses, dépendances et contraintes.','Matrice consolidée croisant les gaps identifiés avec les solutions architecturales proposées.'],
+    roles:[
+      {name:'Enterprise Architect', initials:'EA', resp:'Produit la roadmap, identifie les work packages, coordonne la cohérence des solutions proposées.'},
+      {name:'PMO / Program Manager', initials:'PM', resp:'Évalue la faisabilité, intègre les contraintes de portefeuille et de budget.'},
+      {name:'Solution Architects', initials:'SO', resp:'Proposent et évaluent les solutions techniques pour chaque work package identifié.'},
+      {name:'Finance / CDG', initials:'FI', resp:'Chiffre les projets, évalue le ROI et valide les enveloppes budgétaires associées.'}
+    ]
+  },
+  // ── PHASE F ── 8h = 240°
+  {
+    id:'F', label:'Phase F', sub:'Migration Planning',
+    color:0x0284c7, hex:'#0284c7', bg:'#e0f2fe', cwAngle:STEP*6,
+    desc:'Finalise le plan de migration détaillé avec priorités, dépendances, coûts et jalons. Produit le plan d\'implémentation définitif validé et approuvé par l\'Architecture Board.',
+    deliverables:['Finalized Architecture Roadmap','Implementation & Migration Plan','Transition Architectures finalisées','Architecture Contract (ébauche)','Business Value Assessment','Risk Register mis à jour','Planning Board détaillé','Communication Plan migration'],
+    delivDescs:['Version définitive et approuvée de la roadmap avec priorités, budgets, responsables et jalons détaillés.','Plan détaillé d\'implémentation et de migration : activités, ressources, planning, risques et indicateurs.','Documentation finale des architectures de transition validées et approuvées par l\'Architecture Board.','Avant-contrat définissant les engagements entre équipes de développement et l\'architecture.','Évaluation formelle de la valeur métier générée par chaque work package : ROI et bénéfices.','Mise à jour du registre des risques intégrant les nouveaux risques identifiés lors du planning.','Tableau de bord de planification détaillant la séquence des work packages et leurs dépendances.','Plan de communication spécifique à la migration : audiences, messages, canaux et fréquences.'],
+    roles:[
+      {name:'Lead Architect', initials:'LA', resp:'Finalise et valide la roadmap, assure la cohérence globale du plan de migration.'},
+      {name:'Program / Portfolio Manager', initials:'PP', resp:'Séquence les projets selon les dépendances, risques et capacité organisationnelle.'},
+      {name:'Change Management', initials:'CM', resp:'Prépare les plans de conduite du changement, identifie les impacts RH.'},
+      {name:'Architecture Board', initials:'AB', resp:'Approuve formellement le plan de migration et les architectures de transition.'}
+    ]
+  },
+  // ── PHASE G ── 9h20 = 280°
+  {
+    id:'G', label:'Phase G', sub:'Implementation Governance',
+    color:0x059669, hex:'#059669', bg:'#d1fae5', cwAngle:STEP*7,
+    desc:'Assure la conformité des projets d\'implémentation avec l\'architecture définie. Maintient une gouvernance architecturale continue tout au long du déploiement des solutions.',
+    deliverables:['Architecture Contract (signé)','Compliance Assessment Reports','Architecture Compliance Waivers','Change Requests','Impact Analysis Reports','Updated Architecture Repository','Lessons Learned','Architecture Compliance Reviews'],
+    delivDescs:['Contrat signé entre l\'Architecture Board et les équipes de livraison définissant les engagements qualité.','Rapports d\'évaluation de la conformité des projets en cours par rapport à l\'architecture approuvée.','Dérogations formelles accordées pour les projets ne pouvant pas respecter intégralement les standards.','Demandes de modification formelles de l\'architecture soumises par les équipes projets ou les métiers.','Analyses d\'impact des changements demandés sur l\'architecture existante et les projets en cours.','Repository mis à jour avec tous les artefacts produits lors des phases d\'implémentation.','Retours d\'expérience capitalisés sur le cycle ADM pour améliorer les pratiques architecturales.','Revues formelles de conformité architecturale conduites à chaque jalon clé des projets.'],
+    roles:[
+      {name:'Architecture Board', initials:'AB', resp:'Conduit les revues de conformité, émet les waivers, arbitre les écarts architecturaux.'},
+      {name:'Enterprise Architect', initials:'EA', resp:'Accompagne les projets, répond aux questions d\'architecture, met à jour le repository.'},
+      {name:'Project Managers', initials:'PJ', resp:'Soumettent les demandes de dérogation, assurent le reporting de conformité.'},
+      {name:'Audit / Quality Assurance', initials:'QA', resp:'Vérifie indépendamment la conformité des livrables aux standards architecturaux définis.'}
+    ]
+  },
+  // ── PHASE H ── 10h40 = 320°
+  {
+    id:'H', label:'Phase H', sub:'Architecture Change Mgmt',
+    color:0x16a34a, hex:'#16a34a', bg:'#f0fdf4', cwAngle:STEP*8,
+    desc:'Gère les changements de l\'architecture opérationnelle. Détermine si les changements nécessitent le déclenchement d\'un nouveau cycle ADM complet ou partiel.',
+    deliverables:['Architecture Updates','Change Requests (évalués)','New Request for Architecture Work','Architecture Repository mis à jour','Performance Metrics','Capacity Plan','Technology Obsolescence Roadmap','Architecture Compliance Reports finaux'],
+    delivDescs:['Mises à jour de l\'architecture opérationnelle suite aux changements approuvés et déployés en production.','Demandes de changement évaluées selon impact architectural, urgence et alignement stratégique.','Nouvelle demande de travail architectural déclenchée par des changements majeurs justifiant un nouveau cycle.','Repository intégrant tous les changements architecturaux validés et les nouveaux artefacts produits.','Indicateurs de performance de l\'architecture opérationnelle mesurant l\'atteinte des objectifs définis.','Plan de capacité prévisionnel intégrant les évolutions de charge et besoins futurs en ressources IT.','Feuille de route gérant les obsolescences technologiques identifiées avec les plans de remplacement.','Rapports finaux de conformité clôturant le cycle et documentant le niveau d\'atteinte des objectifs.'],
+    roles:[
+      {name:'Enterprise Architect', initials:'EA', resp:'Évalue les demandes de changement, met à jour le repository, décide du déclenchement d\'un nouveau cycle.'},
+      {name:'Architecture Board', initials:'AB', resp:'Valide les changements majeurs, définit le niveau d\'urgence et la gouvernance associée.'},
+      {name:'IT Operations / Run', initials:'IT', resp:'Remonte les évolutions technologiques, incidents récurrents et obsolescences détectées.'},
+      {name:'Business Stakeholders', initials:'BS', resp:'Initient des demandes de changement suite à des évolutions réglementaires ou stratégiques.'}
+    ]
+  },
+  // ── CENTRE : Requirements Management ──
+  {
+    id:'REQ', label:'Requirements Mgmt', sub:'Processus Central Continu',
+    color:0x0891b2, hex:'#0891b2', bg:'#cffafe', cwAngle:0, isCenter:true,
+    desc:'Processus continu central qui gère les exigences architecturales tout au long du cycle ADM. Il alimente et reçoit des informations de toutes les phases du cycle — c\'est le fil conducteur permanent.',
+    deliverables:['Requirements Repository','Requirements Impact Assessment','Architecture Requirements Specification','Requirements Traceability Matrix','Prioritized Requirements Backlog','Stakeholder Requirements (par phase)'],
+    delivDescs:['Base de données centralisée de toutes les exigences architecturales avec statut, source et traçabilité.','Évaluation de l\'impact des nouvelles exigences sur l\'architecture existante et les travaux en cours.','Spécification formelle des exigences architecturales pour chaque domaine : métier, SI, technique.','Matrice assurant la traçabilité entre les exigences métier et les décisions/composants architecturaux.','Backlog priorisé des exigences architecturales en attente de traitement dans les prochains cycles.','Exigences spécifiques des parties prenantes capturées et reformalisées pour chaque phase du cycle.'],
+    roles:[
+      {name:'Requirements Manager', initials:'RM', resp:'Maintient le repository des exigences, assure la traçabilité et l\'impact sur toutes les phases.'},
+      {name:'Enterprise Architect', initials:'EA', resp:'Traduit les besoins métier en exigences architecturales, valide la cohérence cross-phases.'},
+      {name:'Business Analysts', initials:'BA', resp:'Capturent et formalisent les exigences métier, assurent la liaison avec les parties prenantes.'},
+      {name:'Quality Assurance', initials:'QA', resp:'Vérifie la complétude, cohérence et testabilité des exigences tout au long du cycle ADM.'}
+    ]
+  }
+];
+
+// ══════════════════════════════════════════════════════════════════════
+// THREE.JS
+// ══════════════════════════════════════════════════════════════════════
+const W = window.innerWidth, H = window.innerHeight;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xf0ede6);
+scene.fog = new THREE.Fog(0xf0ede6, 38, 85);
+
+const camera = new THREE.PerspectiveCamera(50, W/H, 0.1, 200);
+camera.position.set(0, 9, 22);
+camera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setSize(W, H);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+document.body.appendChild(renderer.domElement);
+
+// Lights
+scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d0c0, 0.75));
+const sun = new THREE.DirectionalLight(0xfff8f0, 1.8);
+sun.position.set(12, 18, 8);
+sun.castShadow = true;
+sun.shadow.mapSize.set(1024,1024);
+sun.shadow.camera.left = -20; sun.shadow.camera.right = 20;
+sun.shadow.camera.top = 20; sun.shadow.camera.bottom = -20;
+scene.add(sun);
+scene.add(new THREE.DirectionalLight(0xe0f0ff, 0.4)).position.set(-8,4,-6);
+
+// ── Node texture ──
+function makeNodeTex(phase) {
+  const c = document.createElement('canvas');
+  c.width = 256; c.height = 256;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,256,256);
+
+  // Hex shape
+  ctx.beginPath();
+  for(let i=0;i<6;i++){
+    const a=i*Math.PI/3-Math.PI/6;
+    ctx[i?'lineTo':'moveTo'](128+106*Math.cos(a),128+106*Math.sin(a));
+  }
+  ctx.closePath();
+  ctx.fillStyle = phase.bg+'f0';
+  ctx.fill();
+  ctx.strokeStyle = phase.hex+'bb';
+  ctx.lineWidth = 5; ctx.stroke();
+
+  if(phase.isCenter) {
+    // Inner ring for center
+    ctx.beginPath();
+    for(let i=0;i<6;i++){
+      const a=i*Math.PI/3-Math.PI/6;
+      ctx[i?'lineTo':'moveTo'](128+78*Math.cos(a),128+78*Math.sin(a));
+    }
+    ctx.closePath();
+    ctx.strokeStyle = phase.hex+'55';
+    ctx.lineWidth = 2; ctx.stroke();
+  }
+
+  // Phase ID / icon
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.font = phase.isCenter ? '28px serif' : 'bold 28px "Outfit",sans-serif';
+  ctx.fillStyle = phase.hex;
+  ctx.fillText(phase.isCenter ? '⟳' : phase.id, 128, 95);
+
+  // Label
+  ctx.font = 'bold 19px "Outfit",sans-serif';
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fillText(phase.label, 128, 136);
+
+  // Sub — word wrap
+  ctx.font = '11px "DM Mono",monospace';
+  ctx.fillStyle = '#6b6b8a';
+  const words = phase.sub.split(' ');
+  let line='', lines=[];
+  words.forEach(w=>{
+    const t = line ? line+' '+w : w;
+    if(ctx.measureText(t).width > 180 && line){ lines.push(line); line=w; }
+    else line=t;
+  });
+  lines.push(line);
+  lines.forEach((l,i) => ctx.fillText(l, 128, 162+i*15));
+
+  return new THREE.CanvasTexture(c);
+}
+
+// ── BUILD NODES ──
+const ORBIT_R = 8.5;
+const nodeObjects = [];
+const group = new THREE.Group();
+scene.add(group);
+
+// Direction arrows between phases (clockwise indicators)
+const arrowPositions = [];
+
+ADM_PHASES.forEach((phase) => {
+  if(phase.isCenter) return;
+
+  // CLOCKWISE in top view:
+  // cwAngle=0 → top (12h), cwAngle=40 → 1h20, etc.
+  // x = sin(cwAngle_rad) * R   (positive x = right)
+  // z = cos(cwAngle_rad) * R   (positive z = front)
+  // This gives clockwise rotation as angle increases
+  const rad = (phase.cwAngle * Math.PI) / 180;
+  const x = Math.sin(rad) * ORBIT_R;
+  const z = Math.cos(rad) * ORBIT_R;
+  const y = 0; // flat ring, no elevation variation
+
+  const geo = new THREE.CylinderGeometry(1.1, 1.1, 0.30, 6, 1);
+  const mat = new THREE.MeshStandardMaterial({
+    color: phase.color,
+    roughness: 0.2,
+    metalness: 0.55,
+    transparent: true,
+    opacity: 0.93
+  });
+  const hexMesh = new THREE.Mesh(geo, mat);
+  hexMesh.castShadow = true;
+
+  // Top label plane
+  const texP = new THREE.Mesh(
+    new THREE.PlaneGeometry(2.1, 2.1),
+    new THREE.MeshBasicMaterial({ map: makeNodeTex(phase), transparent: true, depthWrite: false })
+  );
+  texP.rotation.x = -Math.PI/2;
+  texP.position.y = 0.16;
+
+  // Shadow disc
+  const sdisk = new THREE.Mesh(
+    new THREE.CircleGeometry(1.18, 32),
+    new THREE.MeshBasicMaterial({ color:0x000000, transparent:true, opacity:0.07, depthWrite:false })
+  );
+  sdisk.rotation.x = -Math.PI/2;
+  sdisk.position.y = -0.22;
+
+  const ng = new THREE.Group();
+  ng.add(hexMesh); ng.add(texP); ng.add(sdisk);
+  ng.position.set(x, y, z);
+  ng.userData = { phase, originalY: y };
+  group.add(ng);
+  nodeObjects.push({ group: ng, hex: hexMesh, phase, rad, x, z, y });
+  arrowPositions.push({ angle: rad, color: phase.color });
+});
+
+// ── CLOCKWISE ARROWS on orbit ring ──
+// Place small arrow cones between each pair of adjacent phases
+nodeObjects.forEach((node, i) => {
+  const next = nodeObjects[(i+1) % nodeObjects.length];
+  // Midpoint angle
+  let a1 = node.rad, a2 = next.rad;
+  if(a2 < a1) a2 += Math.PI*2; // wrap
+  const mid = (a1 + a2) / 2;
+  const arrowR = ORBIT_R + 0.05;
+  const ax = Math.sin(mid) * arrowR;
+  const az = Math.cos(mid) * arrowR;
+
+  // Arrow direction: tangent to circle, clockwise = (cos(mid), 0, -sin(mid))
+  const cone = new THREE.Mesh(
+    new THREE.ConeGeometry(0.15, 0.4, 8),
+    new THREE.MeshStandardMaterial({ color: node.phase.color, roughness:0.3, metalness:0.4, transparent:true, opacity:0.7 })
+  );
+  cone.position.set(ax, 0.05, az);
+  // Rotate to point clockwise tangent direction
+  // Tangent CW: d/d(cwAngle) of (sin,cos) = (cos,-sin) → pointing in tangent direction
+  const tangentAngle = Math.atan2(Math.cos(mid), -Math.sin(mid));
+  cone.rotation.set(Math.PI/2, 0, 0); // lay flat
+  cone.rotation.y = -mid + Math.PI/2; // orient tangentially clockwise
+  group.add(cone);
+});
+
+// ── CENTER NODE ──
+const centerPhase = ADM_PHASES.find(p => p.isCenter);
+const cGeo = new THREE.CylinderGeometry(1.72, 1.72, 0.40, 6, 1);
+const cMat = new THREE.MeshStandardMaterial({ color:0x0891b2, roughness:0.18, metalness:0.6, transparent:true, opacity:0.95 });
+const cMesh = new THREE.Mesh(cGeo, cMat);
+cMesh.castShadow = true;
+
+const cTexP = new THREE.Mesh(
+  new THREE.PlaneGeometry(3.1, 3.1),
+  new THREE.MeshBasicMaterial({ map: makeNodeTex(centerPhase), transparent:true, depthWrite:false })
+);
+cTexP.rotation.x = -Math.PI/2;
+cTexP.position.y = 0.22;
+
+// Pulsing outer ring
+const pRing = new THREE.Mesh(
+  new THREE.TorusGeometry(2.1, 0.045, 8, 64),
+  new THREE.MeshBasicMaterial({ color:0x0891b2, transparent:true, opacity:0.35 })
+);
+pRing.rotation.x = Math.PI/2;
+
+// Inner dashed ring (visual)
+const iRing = new THREE.Mesh(
+  new THREE.TorusGeometry(2.6, 0.02, 8, 64),
+  new THREE.MeshBasicMaterial({ color:0x0891b2, transparent:true, opacity:0.15 })
+);
+iRing.rotation.x = Math.PI/2;
+
+const cGroup = new THREE.Group();
+cGroup.add(cMesh); cGroup.add(cTexP); cGroup.add(pRing); cGroup.add(iRing);
+cGroup.userData = { phase: centerPhase, isCenter: true };
+group.add(cGroup);
+
+// ── ORBIT RING ──
+const orbitMat = new THREE.MeshBasicMaterial({ color:0x94a3b8, transparent:true, opacity:0.25 });
+const orbitMesh = new THREE.Mesh(new THREE.TorusGeometry(ORBIT_R, 0.028, 8, 128), orbitMat);
+orbitMesh.rotation.x = Math.PI/2;
+group.add(orbitMesh);
+
+// ── SPOKES — center to each node ──
+nodeObjects.forEach(({x,z,y}) => {
+  const pts = [new THREE.Vector3(0,0,0), new THREE.Vector3(x,y,z)];
+  const geo = new THREE.BufferGeometry().setFromPoints(pts);
+  group.add(new THREE.Line(geo, new THREE.LineBasicMaterial({ color:0xb0b8c8, transparent:true, opacity:0.25 })));
+});
+
+// ── GROUND ──
+const gMesh = new THREE.Mesh(
+  new THREE.PlaneGeometry(70,70),
+  new THREE.MeshStandardMaterial({ color:0xe6e2d8, roughness:1 })
+);
+gMesh.rotation.x = -Math.PI/2;
+gMesh.position.y = -1.5;
+gMesh.receiveShadow = true;
+scene.add(gMesh);
+const gh = new THREE.GridHelper(60, 60, 0xd4cfc4, 0xdad6cc);
+gh.position.y = -1.48;
+scene.add(gh);
+
+// ══════════════════════════════════════════════════════════════════════
+// PANEL HTML
+// ══════════════════════════════════════════════════════════════════════
+const AVATAR_PALETTES = [
+  ['#dbeafe','#1d4ed8'],['#ede9fe','#6d28d9'],['#fef3c7','#b45309'],
+  ['#fee2e2','#b91c1c'],['#fce7f3','#9d174d'],['#e0f2fe','#0369a1'],
+  ['#d1fae5','#065f46'],['#f0fdf4','#15803d'],['#cffafe','#0e7490'],
+  ['#fef9c3','#a16207'],['#fff7ed','#c2410c'],['#f5f3ff','#5b21b6'],
+];
+let avatarIdx = 0;
+
+function makeAvatarSVG(initials, pal) {
+  const [bg, fg] = pal;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+    <circle cx="22" cy="22" r="22" fill="${bg}"/>
+    <circle cx="22" cy="18" r="8" fill="${fg}" opacity="0.85"/>
+    <ellipse cx="22" cy="37" rx="13" ry="9" fill="${fg}" opacity="0.7"/>
+    <text x="22" y="21" font-family="Outfit,sans-serif" font-size="9" font-weight="700"
+      fill="white" text-anchor="middle" dominant-baseline="middle">${initials}</text>
+  </svg>`;
+}
+
+function folderHTML(name, desc, color, bg) {
+  const key = 'f'+Math.random().toString(36).slice(2,8);
+  return `<div class="folder-card" onclick="this.classList.toggle('open-folder')">
+    <div class="folder-tab" style="background:${color}30;border-top:2px solid ${color}90"></div>
+    <div class="folder-body" style="background:${bg}55">
+      <div class="folder-icon-row">
+        <svg width="20" height="17" viewBox="0 0 22 18" fill="none">
+          <path d="M0 3C0 1.9 .9 1 2 1H8L10 3H20C21.1 3 22 3.9 22 5V15C22 16.1 21.1 17 20 17H2C.9 17 0 16.1 0 15V3Z" fill="${color}" opacity="0.75"/>
+          <path d="M0 6H22V15C22 16.1 21.1 17 20 17H2C.9 17 0 16.1 0 15V6Z" fill="${color}"/>
+          <rect x="4" y="9" width="10" height="1.2" rx=".6" fill="white" opacity="0.55"/>
+          <rect x="4" y="11.5" width="7" height="1.2" rx=".6" fill="white" opacity="0.38"/>
+        </svg>
+        <span class="folder-name">${name}</span>
+      </div>
+      <div class="folder-desc">${desc}</div>
+    </div>
+    <span class="folder-toggle">▶</span>
+  </div>`;
+}
+
+function avatarHTML(role, phaseColor) {
+  const pal = AVATAR_PALETTES[avatarIdx++ % AVATAR_PALETTES.length];
+  const svg = makeAvatarSVG(role.initials, pal);
+  const url = URL.createObjectURL(new Blob([svg], {type:'image/svg+xml'}));
+  return `<div class="role-row">
+    <div style="flex-shrink:0">
+      <img src="${url}" width="44" height="44" style="border-radius:50%;border:2.5px solid ${phaseColor}44" alt="${role.name}"/>
+    </div>
+    <div>
+      <div class="role-name">${role.name}</div>
+      <div class="role-resp">${role.resp}</div>
+    </div>
+  </div>`;
+}
+
+function openPanel(phase) {
+  avatarIdx = 0;
+  const panel = document.getElementById('panel');
+  const content = document.getElementById('panel-content');
+
+  const folders = phase.deliverables.map((d,i) =>
+    folderHTML(d, phase.delivDescs[i] || '—', phase.hex, phase.bg)
+  ).join('');
+  const avatars = phase.roles.map(r => avatarHTML(r, phase.hex)).join('');
+
+  const phaseNum = phase.isCenter ? '⊙ PROCESSUS CENTRAL' : (phase.id === 'PRELIM' ? 'PHASE · PRELIMINARY' : 'PHASE · '+phase.id);
+  const prevPhase = phase.isCenter ? null : (() => {
+    const idx = ADM_PHASES.filter(p=>!p.isCenter).findIndex(p=>p.id===phase.id);
+    const prev = ADM_PHASES.filter(p=>!p.isCenter)[(idx+8)%9];
+    const next = ADM_PHASES.filter(p=>!p.isCenter)[(idx+1)%9];
+    return `<div style="display:flex;gap:8px;margin-bottom:18px;font-family:'DM Mono';font-size:10px;">
+      <span style="color:var(--ink3)">◀ ${prev.id==='PRELIM'?'Preliminary':prev.id}</span>
+      <span style="color:var(--ink3);flex:1;text-align:center;letter-spacing:0.1em">SENS HORAIRE ↻</span>
+      <span style="color:var(--ink3)">${next.id==='PRELIM'?'Preliminary':next.id} ▶</span>
+    </div>`;
+  })();
+
+  content.innerHTML = `
+    <div class="phase-tag" style="background:${phase.bg};color:${phase.hex};border:1px solid ${phase.hex}44">
+      ${phaseNum}
+    </div>
+    <div class="panel-title" style="color:${phase.hex}">${phase.label}</div>
+    <div class="panel-sub">${phase.sub}</div>
+    ${prevPhase || ''}
+    <div class="panel-desc">${phase.desc}</div>
+
+    <div class="section-label" style="color:${phase.hex}">
+      Livrables — ${phase.deliverables.length} artefacts
+    </div>
+    <div class="folders-grid">${folders}</div>
+
+    <div class="section-label" style="color:${phase.hex}" style="margin-top:8px">
+      Rôles & Responsabilités
+    </div>
+    <div class="roles-list">${avatars}</div>
+  `;
+  panel.classList.add('open');
+}
+
+function closePanel() { document.getElementById('panel').classList.remove('open'); }
+window.closePanel = closePanel;
+
+// ══════════════════════════════════════════════════════════════════════
+// RAYCASTING
+// ══════════════════════════════════════════════════════════════════════
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+window.addEventListener('mousemove', e => {
+  mouse.x = (e.clientX/W)*2-1;
+  mouse.y = -(e.clientY/H)*2+1;
+});
+function clickables() { return [...nodeObjects.map(n=>n.hex), cMesh]; }
+renderer.domElement.addEventListener('click', e => {
+  raycaster.setFromCamera(mouse, camera);
+  const hits = raycaster.intersectObjects(clickables());
+  if(!hits.length) return;
+  const obj = hits[0].object;
+  let ph = obj===cMesh ? centerPhase : nodeObjects.find(n=>n.hex===obj)?.phase;
+  if(ph) openPanel(ph);
+});
+
+// ══════════════════════════════════════════════════════════════════════
+// ORBIT CONTROLS
+// ══════════════════════════════════════════════════════════════════════
+let isDragging=false, prevM={x:0,y:0};
+let theta=0.05, phi=0.38, radius=22;
+let tTheta=0.05, tPhi=0.38, tRadius=22;
+
+renderer.domElement.addEventListener('mousedown', e=>{ isDragging=true; prevM={x:e.clientX,y:e.clientY}; });
+window.addEventListener('mouseup', ()=>isDragging=false);
+window.addEventListener('mousemove', e=>{
+  if(!isDragging) return;
+  tTheta -= (e.clientX-prevM.x)*0.006;
+  tPhi   -= (e.clientY-prevM.y)*0.004;
+  tPhi = Math.max(0.08, Math.min(1.3, tPhi));
+  prevM = {x:e.clientX, y:e.clientY};
+});
+window.addEventListener('wheel', e=>{
+  tRadius += e.deltaY*0.04;
+  tRadius = Math.max(8, Math.min(40, tRadius));
+});
+renderer.domElement.addEventListener('touchstart',e=>{isDragging=true;prevM={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
+renderer.domElement.addEventListener('touchend',()=>isDragging=false);
+renderer.domElement.addEventListener('touchmove',e=>{
+  if(!isDragging)return;
+  tTheta-=(e.touches[0].clientX-prevM.x)*0.006;
+  tPhi-=(e.touches[0].clientY-prevM.y)*0.004;
+  tPhi=Math.max(0.08,Math.min(1.3,tPhi));
+  prevM={x:e.touches[0].clientX,y:e.touches[0].clientY};
+},{passive:true});
+
+// ══════════════════════════════════════════════════════════════════════
+// ANIMATE
+// ══════════════════════════════════════════════════════════════════════
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+
+  // Camera orbit
+  theta  += (tTheta-theta)*0.07;
+  phi    += (tPhi-phi)*0.07;
+  radius += (tRadius-radius)*0.07;
+  camera.position.set(
+    Math.sin(theta)*Math.cos(phi)*radius,
+    Math.sin(phi)*radius,
+    Math.cos(theta)*Math.cos(phi)*radius
+  );
+  camera.lookAt(0,0,0);
+
+  // Slow clockwise auto-rotation (matches ADM direction)
+  if(!isDragging) group.rotation.y += 0.0010;
+
+  // Center pulse
+  pRing.scale.setScalar(1 + Math.sin(t*1.6)*0.04);
+  pRing.material.opacity = 0.2 + Math.sin(t*1.6)*0.12;
+  iRing.material.opacity = 0.08 + Math.sin(t*1.2+1)*0.06;
+  cMesh.rotation.y = t * 0.18;
+
+  // Node hover highlight + gentle float
+  raycaster.setFromCamera(mouse, camera);
+  const hits = raycaster.intersectObjects(clickables());
+  const hit = hits.length ? hits[0].object : null;
+
+  nodeObjects.forEach(({group:ng, hex}, i) => {
+    const hov = hit===hex;
+    const ts = hov ? 1.13 : 1.0;
+    ng.scale.lerp(new THREE.Vector3(ts,ts,ts), 0.10);
+    // Gentle float — subtle, all on same plane
+    ng.position.y = ng.userData.originalY + Math.sin(t*0.65+i*0.7)*0.08;
+    renderer.domElement.style.cursor = hit ? 'pointer' : 'grab';
+  });
+
+  // Center hover
+  if(hit===cMesh) {
+    cGroup.scale.lerp(new THREE.Vector3(1.08,1.08,1.08), 0.1);
+    renderer.domElement.style.cursor = 'pointer';
+  } else {
+    cGroup.scale.lerp(new THREE.Vector3(1,1,1), 0.1);
+  }
+
+  // Sun gentle movement
+  sun.position.set(12+Math.sin(t*0.04)*4, 18, 8+Math.cos(t*0.04)*3);
+
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', ()=>{
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
