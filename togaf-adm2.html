@@ -15,17 +15,11 @@
   --shadow: rgba(26,26,46,0.10);
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body {
-  background: var(--bg);
-  font-family: 'Outfit', sans-serif;
-  overflow: hidden;
-  user-select: none;
-}
+body { background:var(--bg); font-family:'Outfit',sans-serif; overflow:hidden; user-select:none; }
 body::before {
   content:''; position:fixed; inset:0;
-  background-image: radial-gradient(circle, rgba(26,26,46,0.10) 1px, transparent 1px);
-  background-size: 28px 28px;
-  pointer-events:none; z-index:0;
+  background-image:radial-gradient(circle, rgba(26,26,46,0.09) 1px, transparent 1px);
+  background-size:28px 28px; pointer-events:none; z-index:0;
 }
 canvas { display:block; position:relative; z-index:1; }
 
@@ -45,24 +39,10 @@ canvas { display:block; position:relative; z-index:1; }
   border:1px solid rgba(37,99,235,0.22); padding:5px 14px; border-radius:20px;
 }
 
-/* ── CLOCK DIRECTION INDICATOR ── */
-#clock-arrow {
-  position:fixed; top:70px; left:50%; transform:translateX(-50%);
-  font-family:'DM Mono'; font-size:10px; color:var(--ink3);
-  letter-spacing:0.12em; z-index:20;
-  display:flex; align-items:center; gap:8px;
-  background:rgba(244,241,235,0.88); border:1px solid var(--border);
-  padding:5px 14px; border-radius:20px;
-  backdrop-filter:blur(8px);
-}
-.arrow-svg { animation: spin-cw 4s linear infinite; }
-@keyframes spin-cw { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-
 /* ── PANEL ── */
 #panel {
   position:fixed; right:0; top:0; bottom:0; width:420px; z-index:30;
-  background:#faf9f5;
-  border-left:1px solid var(--border);
+  background:#faf9f5; border-left:1px solid var(--border);
   box-shadow:-8px 0 40px var(--shadow);
   transform:translateX(100%);
   transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
@@ -86,6 +66,11 @@ canvas { display:block; position:relative; z-index:1; }
 .panel-title { font-family:'DM Serif Display'; font-size:28px; color:var(--ink); margin-bottom:5px; }
 .panel-sub { font-family:'DM Mono'; font-size:11px; color:var(--ink3); letter-spacing:0.1em; margin-bottom:9px; }
 .panel-desc { font-size:13px; color:var(--ink2); line-height:1.75; margin-bottom:24px; }
+.phase-nav {
+  display:flex; gap:8px; margin-bottom:18px;
+  font-family:'DM Mono'; font-size:10px; color:var(--ink3);
+  align-items:center;
+}
 
 .section-label {
   font-family:'DM Mono'; font-size:9px; letter-spacing:0.28em; text-transform:uppercase;
@@ -99,9 +84,8 @@ canvas { display:block; position:relative; z-index:1; }
 .folder-card {
   position:relative; cursor:pointer;
   border-radius:6px; overflow:hidden;
-  border:1px solid var(--border);
-  transition:all 0.22s; background:#fff;
-  box-shadow:0 2px 8px var(--shadow);
+  border:1px solid var(--border); transition:all 0.22s;
+  background:#fff; box-shadow:0 2px 8px var(--shadow);
 }
 .folder-card:hover { transform:translateY(-2px); box-shadow:0 6px 18px var(--shadow); }
 .folder-tab { height:9px; width:52%; position:relative; top:1px; left:9px; border-radius:4px 4px 0 0; }
@@ -130,20 +114,20 @@ canvas { display:block; position:relative; z-index:1; }
 
 #legend {
   position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
-  display:flex; gap:14px; z-index:20;
+  display:flex; gap:12px; z-index:20;
   background:rgba(244,241,235,0.92); border:1px solid var(--border);
   padding:8px 20px; border-radius:28px;
   box-shadow:0 4px 20px var(--shadow); backdrop-filter:blur(10px);
-  flex-wrap:wrap; justify-content:center; max-width:680px;
+  flex-wrap:wrap; justify-content:center; max-width:720px;
 }
 .leg { display:flex; align-items:center; gap:5px; font-size:10.5px; color:var(--ink3); }
 .leg-dot { width:8px; height:8px; border-radius:50%; }
+.leg-diamond { width:8px; height:8px; transform:rotate(45deg); }
 
 #hint {
   position:fixed; bottom:58px; left:50%; transform:translateX(-50%);
   font-family:'DM Mono'; font-size:10px; color:var(--ink3);
-  letter-spacing:0.1em; pointer-events:none; z-index:20;
-  white-space:nowrap;
+  letter-spacing:0.1em; pointer-events:none; z-index:20; white-space:nowrap;
 }
 </style>
 </head>
@@ -152,18 +136,9 @@ canvas { display:block; position:relative; z-index:1; }
 <div id="header">
   <div>
     <div id="logo">TOGAF <span>ADM</span> Cycle</div>
-    <div id="tagline">ARCHITECTURE DEVELOPMENT METHOD · SENS HORAIRE · INTERACTIVE 3D</div>
+    <div id="tagline">ARCHITECTURE DEVELOPMENT METHOD · PHASE A À 12H · SENS HORAIRE</div>
   </div>
   <div id="badge">TOGAF® 10 EDITION</div>
-</div>
-
-<div id="clock-arrow">
-  <svg class="arrow-svg" width="14" height="14" viewBox="0 0 14 14">
-    <circle cx="7" cy="7" r="5.5" stroke="#2563eb" stroke-width="1.2" fill="none"/>
-    <path d="M7 2.5 A4.5 4.5 0 1 1 3.5 10.5" stroke="#2563eb" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-    <polygon points="2.5,9.5 4.5,12 5.5,9" fill="#2563eb"/>
-  </svg>
-  SENS HORAIRE : Preliminary → A → B → C → D → E → F → G → H
 </div>
 
 <div id="panel">
@@ -176,7 +151,7 @@ canvas { display:block; position:relative; z-index:1; }
 <div id="hint">🖱 GLISSER POUR ORBITER  ·  MOLETTE POUR ZOOMER  ·  CLIQUER UNE PHASE POUR EXPLORER</div>
 
 <div id="legend">
-  <div class="leg"><div class="leg-dot" style="background:#64748b"></div>Preliminary</div>
+  <div class="leg"><div class="leg-diamond" style="background:#64748b"></div>Preliminary (hors cycle)</div>
   <div class="leg"><div class="leg-dot" style="background:#7c3aed"></div>A · Vision</div>
   <div class="leg"><div class="leg-dot" style="background:#d97706"></div>B · Business</div>
   <div class="leg"><div class="leg-dot" style="background:#ea580c"></div>C · Info Systems</div>
@@ -190,52 +165,45 @@ canvas { display:block; position:relative; z-index:1; }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+
 // ══════════════════════════════════════════════════════════════════════
-// TOGAF ADM — phases dans le sens HORAIRE
-// En vue de dessus, 12h = haut = angle 0 sur le cercle trigonométrique
-// Sens horaire signifie que l'angle augmente dans le sens des aiguilles
+// LAYOUT :
+//   Phase A  → 12h  = cwAngle 0°    (sin0=0,  cos0=1  → z+)
+//   Phase B  → 1h20 = cwAngle 45°
+//   Phase C  → 2h40 = cwAngle 90°
+//   Phase D  → 4h   = cwAngle 135°
+//   Phase E  → 5h20 = cwAngle 180°
+//   Phase F  → 6h40 = cwAngle 225°
+//   Phase G  → 8h   = cwAngle 270°
+//   Phase H  → 9h20 = cwAngle 315°
 //
-// On place Preliminary à 12h (haut) puis on tourne dans le sens horaire :
-//   Preliminary → 0°
-//   A           → 40°   (= 360/9 ≈ 40°)
-//   B           → 80°
-//   C           → 120°
-//   D           → 160°
-//   E           → 200°
-//   F           → 240°
-//   G           → 280°
-//   H           → 320°
+//   8 phases → 360/8 = 45° entre chaque
 //
-// En THREE.js, pour un sens horaire vu de dessus :
-//   x = sin(angle_deg * π/180) * R
-//   z = cos(angle_deg * π/180) * R
-// L'angle augmentant dans le sens horaire en vue plan.
+//   Preliminary : hors anneau, positionné au-dessus de A (y élevé, même x/z que A)
+//   Requirements Management : centre
+//
+//   Coordonnées THREE.js pour sens horaire vu du dessus :
+//     x =  sin(cwAngle_rad) * R
+//     z =  cos(cwAngle_rad) * R
 // ══════════════════════════════════════════════════════════════════════
 
-const STEP = 360 / 9; // 40° entre chaque phase
+const STEP = 360 / 8; // 45° entre chaque phase du cycle
 
-const ADM_PHASES = [
-  // ── PRELIMINARY ── 12h = 0°
-  {
-    id:'PRELIM', label:'Preliminary', sub:'Cadrage & Principes',
-    color:0x64748b, hex:'#64748b', bg:'#f1f5f9', cwAngle:0,
-    desc:'Définit le cadre et les principes architecturaux. Prépare l\'organisation à entreprendre des projets d\'architecture d\'entreprise de manière structurée et gouvernée.',
-    deliverables:['Principes d\'Architecture','Cadre d\'Architecture organisationnel','Repository d\'Architecture','Charte de gouvernance','Catalogue des parties prenantes','Outils et techniques sélectionnés'],
-    delivDescs:['Ensemble de règles fondamentales guidant l\'utilisation et le déploiement des ressources IT à travers l\'organisation.','Définit comment l\'architecture sera développée, gérée et utilisée, incluant les processus, rôles et outils.','Référentiel central stockant tous les artefacts architecturaux, modèles, patterns et décisions.','Document fondateur établissant les règles de gouvernance, mécanismes de décision et processus de revue.','Inventaire exhaustif des parties prenantes, leurs intérêts, préoccupations et niveaux d\'influence.','Sélection des outils de modélisation (ArchiMate, UML) et plateformes de repository à utiliser.'],
-    roles:[
-      {name:'Chief Architect / DSIO', initials:'CA', resp:'Sponsor exécutif — valide les principes, alloue le budget. Définit l\'ambition architecturale.'},
-      {name:'Architecture Board', initials:'AB', resp:'Valide le cadre de gouvernance, approuve les principes et assure l\'alignement stratégique.'},
-      {name:'Enterprise Architect', initials:'EA', resp:'Élabore les principes, sélectionne les outils, définit le repository et pilote le cadre.'},
-      {name:'RH & Change Management', initials:'RH', resp:'Accompagne la conduite du changement et la formation aux pratiques d\'architecture.'}
-    ]
-  },
-  // ── PHASE A ── 1h20 = 40°
+const CYCLE_PHASES = [
   {
     id:'A', label:'Phase A', sub:'Architecture Vision',
-    color:0x7c3aed, hex:'#7c3aed', bg:'#ede9fe', cwAngle:STEP*1,
+    color:0x7c3aed, hex:'#7c3aed', bg:'#ede9fe', cwAngle:0,
     desc:'Définit le périmètre, les contraintes et les attentes du cycle ADM. Crée la vision architecturale partagée et obtient l\'approbation formelle pour engager les travaux d\'architecture.',
     deliverables:['Statement of Architecture Work','Architecture Vision','Refined Business Principles','Business Scenarios','Stakeholder Map & Comm. Plan','Risk Register initial','Request for Architecture Work'],
-    delivDescs:['Contrat définissant le périmètre des travaux, ressources allouées, planning et critères d\'acceptation.','Description synthétique de l\'architecture cible et de la valeur apportée aux parties prenantes.','Principes métier affinés guidant les décisions d\'architecture et d\'investissement technologique.','Scénarios décrivant les besoins métier, acteurs, rôles et exigences dans leur contexte opérationnel.','Cartographie des parties prenantes avec leur influence/intérêt et le plan de communication associé.','Catalogue des risques architecturaux identifiés avec probabilité, impact et mesures d\'atténuation.','Demande formelle initiant le cycle ADM, décrivant le contexte, les enjeux et les attentes.'],
+    delivDescs:[
+      'Contrat définissant le périmètre des travaux d\'architecture, ressources allouées, planning et critères d\'acceptation.',
+      'Description synthétique de l\'architecture cible et de la valeur apportée, validée par le sponsor exécutif.',
+      'Principes métier affinés qui guident les décisions d\'architecture et d\'investissement technologique.',
+      'Scénarios décrivant les besoins métier, acteurs, rôles et exigences dans leur contexte opérationnel.',
+      'Cartographie des parties prenantes avec leur influence/intérêt et le plan de communication associé.',
+      'Catalogue des risques architecturaux identifiés avec probabilité, impact et mesures d\'atténuation.',
+      'Demande formelle initiant le cycle ADM, décrivant le contexte organisationnel, les enjeux et les attentes.'
+    ],
     roles:[
       {name:'Sponsor / CODIR', initials:'SP', resp:'Approuve le Statement of Architecture Work, valide la vision et alloue le budget projet.'},
       {name:'Lead Enterprise Architect', initials:'LE', resp:'Produit la vision architecturale, conduit les ateliers de cadrage, gère les parties prenantes clés.'},
@@ -243,13 +211,22 @@ const ADM_PHASES = [
       {name:'Architecture Board', initials:'AB', resp:'Valide la conformité de la vision avec les principes établis en phase Preliminary.'}
     ]
   },
-  // ── PHASE B ── 2h40 = 80°
   {
     id:'B', label:'Phase B', sub:'Business Architecture',
-    color:0xd97706, hex:'#d97706', bg:'#fef3c7', cwAngle:STEP*2,
+    color:0xd97706, hex:'#d97706', bg:'#fef3c7', cwAngle:STEP*1,
     desc:'Développe l\'Architecture Métier cible pour soutenir la vision architecturale. Décrit les processus, capacités, fonctions, rôles et flux d\'information à l\'état cible.',
     deliverables:['Business Architecture Document','Organization/Actor Catalog','Driver/Goal/Objective Catalog','Business Service/Function Catalog','Business Process Catalog','Business Interaction Matrix','Actor/Role Matrix','Capability Assessment','Gap Analysis (Business)'],
-    delivDescs:['Documentation complète de l\'architecture métier cible : processus, capacités, flux et structure organisationnelle.','Catalogue de toutes les entités organisationnelles, acteurs internes/externes et leurs rôles dans les processus.','Catalogue des drivers stratégiques, objectifs métier et KPIs pour justifier et prioriser les décisions.','Inventaire des services et fonctions métier exposés en interne ou externe, avec caractéristiques et SLA.','Catalogue détaillé des processus métier, déclencheurs d\'événements, contrôles associés et produits générés.','Matrice représentant les interactions entre unités organisationnelles et fonctions/services métier.','Mapping entre les acteurs (humains ou systèmes) et les rôles qu\'ils jouent dans les processus.','Évaluation des capacités métier existantes vs cibles, identifiant les gaps à combler pour la vision.','Analyse formelle des écarts entre l\'architecture métier existante (baseline) et l\'architecture cible.'],
+    delivDescs:[
+      'Documentation complète de l\'architecture métier cible : processus, capacités, flux et structure organisationnelle.',
+      'Catalogue de toutes les entités organisationnelles, acteurs internes/externes et leurs rôles dans les processus.',
+      'Catalogue des drivers stratégiques, objectifs métier et KPIs pour justifier et prioriser les décisions.',
+      'Inventaire des services et fonctions métier exposés en interne ou externe, avec caractéristiques et SLA.',
+      'Catalogue détaillé des processus métier, déclencheurs d\'événements, contrôles associés et produits générés.',
+      'Matrice représentant les interactions entre unités organisationnelles et fonctions/services métier.',
+      'Mapping entre les acteurs (humains ou systèmes) et les rôles qu\'ils jouent dans les processus.',
+      'Évaluation des capacités métier existantes vs cibles, identifiant les gaps à combler pour la vision.',
+      'Analyse formelle des écarts entre l\'architecture métier existante (baseline) et l\'architecture cible.'
+    ],
     roles:[
       {name:'Business Architect', initials:'BZ', resp:'Modélise les processus et capacités métier, anime les ateliers, produit les catalogues.'},
       {name:'Process Owner', initials:'PO', resp:'Valide les processus modélisés, identifie les besoins d\'évolution et contraintes opérationnelles.'},
@@ -257,13 +234,22 @@ const ADM_PHASES = [
       {name:'RH / Organisation', initials:'RH', resp:'Fournit les informations organisationnelles, valide les rôles et responsabilités modélisés.'}
     ]
   },
-  // ── PHASE C ── 4h = 120°
   {
     id:'C', label:'Phase C', sub:'Information Systems Arch.',
-    color:0xea580c, hex:'#ea580c', bg:'#fff7ed', cwAngle:STEP*3,
-    desc:'Développe l\'Architecture des Systèmes d\'Information (données et applications) pour soutenir l\'Architecture Métier. Couvre les dimensions Data et Application.',
+    color:0xea580c, hex:'#ea580c', bg:'#fff7ed', cwAngle:STEP*2,
+    desc:'Développe l\'Architecture des Systèmes d\'Information (données et applications) pour soutenir l\'Architecture Métier. Couvre les dimensions Data et Application Architecture.',
     deliverables:['Data Architecture Document','Application Architecture Document','Data Entity/Component Catalog','Application Portfolio Catalog','Interface Catalog','Application/Data Matrix','Application Communication Diagram','Data Dissemination Diagram','Gap Analysis (SI)'],
-    delivDescs:['Documentation de l\'architecture des données : modèles conceptuels, logiques, règles de gestion et gouvernance.','Documentation du portefeuille applicatif cible, interactions entre applications et patterns d\'intégration.','Catalogue des entités de données et composants avec leurs attributs, relations et propriétaires.','Inventaire de toutes les applications du SI avec caractéristiques, dépendances et criticité métier.','Catalogue des interfaces entre applications : protocoles, formats, fréquences, SLA et responsabilités.','Matrice montrant quelles applications créent, lisent, mettent à jour ou suppriment quelles données (CRUD).','Diagramme représentant les flux de communication entre applications et services dans l\'architecture cible.','Représentation de la distribution et du flux des entités de données à travers les composants applicatifs.','Analyse des écarts entre le SI existant et le SI cible pour les dimensions données et applicatives.'],
+    delivDescs:[
+      'Documentation de l\'architecture des données : modèles conceptuels, logiques, règles de gestion et gouvernance.',
+      'Documentation du portefeuille applicatif cible, interactions entre applications et patterns d\'intégration.',
+      'Catalogue des entités de données et composants avec leurs attributs, relations et propriétaires.',
+      'Inventaire de toutes les applications du SI avec caractéristiques, dépendances et criticité métier.',
+      'Catalogue des interfaces entre applications : protocoles, formats, fréquences, SLA et responsabilités.',
+      'Matrice montrant quelles applications créent, lisent, mettent à jour ou suppriment quelles données (CRUD).',
+      'Diagramme représentant les flux de communication entre applications et services dans l\'architecture cible.',
+      'Représentation de la distribution et du flux des entités de données à travers les composants applicatifs.',
+      'Analyse des écarts entre le SI existant et le SI cible pour les dimensions données et applicatives.'
+    ],
     roles:[
       {name:'Data Architect', initials:'DA', resp:'Modélise les entités de données, définit les règles de gestion, produit les diagrammes de flux.'},
       {name:'Application Architect', initials:'AA', resp:'Cartographie le portefeuille applicatif, modélise les interfaces et flux entre applications.'},
@@ -271,13 +257,22 @@ const ADM_PHASES = [
       {name:'Security Architect', initials:'SA', resp:'Intègre les contraintes de sécurité dans les architectures données et applicatives définies.'}
     ]
   },
-  // ── PHASE D ── 5h20 = 160°
   {
     id:'D', label:'Phase D', sub:'Technology Architecture',
-    color:0xdc2626, hex:'#dc2626', bg:'#fee2e2', cwAngle:STEP*4,
+    color:0xdc2626, hex:'#dc2626', bg:'#fee2e2', cwAngle:STEP*3,
     desc:'Décrit l\'architecture technique (infrastructure, middleware, réseaux, plateformes) qui supporte les architectures métier et systèmes d\'information définies dans les phases précédentes.',
     deliverables:['Technology Architecture Document','Technology Standards Catalog','Technology Portfolio Catalog','Application/Technology Matrix','Environments & Locations Diagram','Platform Decomposition Diagram','Processing Diagram','Network Connectivity Diagram','Gap Analysis (Technology)'],
-    delivDescs:['Documentation de l\'architecture technique : plateformes, middleware, réseaux, environnements et standards.','Catalogue des standards technologiques adoptés (langages, protocoles, produits) et leur cycle de vie.','Inventaire des composants technologiques déployés avec leur statut (strategic/tolerated/eliminate).','Mapping entre les applications du SI et les composants technologiques sur lesquels elles s\'appuient.','Représentation des environnements IT (prod/staging/dev) et leur distribution géographique.','Décomposition hiérarchique des plateformes technologiques en composants et services élémentaires.','Diagramme représentant la répartition du traitement entre les nœuds de l\'infrastructure IT.','Architecture réseau détaillant connexions, protocoles, bandes passantes et zones de sécurité.','Analyse des écarts entre l\'infrastructure existante et l\'infrastructure cible nécessaire.'],
+    delivDescs:[
+      'Documentation de l\'architecture technique : plateformes, middleware, réseaux, environnements et standards technologiques.',
+      'Catalogue des standards technologiques adoptés (langages, protocoles, produits) et leur cycle de vie.',
+      'Inventaire des composants technologiques déployés avec leur statut (strategic/tolerated/eliminate).',
+      'Mapping entre les applications du SI et les composants technologiques sur lesquels elles s\'appuient.',
+      'Représentation des environnements IT (prod/staging/dev) et leur distribution géographique.',
+      'Décomposition hiérarchique des plateformes technologiques en composants et services élémentaires.',
+      'Diagramme représentant la répartition du traitement entre les nœuds de l\'infrastructure IT.',
+      'Architecture réseau détaillant connexions, protocoles, bandes passantes et zones de sécurité.',
+      'Analyse des écarts entre l\'infrastructure existante et l\'infrastructure cible nécessaire.'
+    ],
     roles:[
       {name:'Technical Architect / Infra', initials:'TA', resp:'Conçoit l\'architecture des plateformes, réseaux et middlewares. Produit les diagrammes d\'infrastructure.'},
       {name:'Cloud Architect', initials:'CL', resp:'Définit la stratégie cloud, les patterns d\'hébergement et les services managés à adopter.'},
@@ -285,13 +280,21 @@ const ADM_PHASES = [
       {name:'Operations / SRE', initials:'SR', resp:'Valide la faisabilité opérationnelle, les SLA et les contraintes de MCO.'}
     ]
   },
-  // ── PHASE E ── 6h40 = 200°
   {
     id:'E', label:'Phase E', sub:'Opportunities & Solutions',
-    color:0xbe185d, hex:'#be185d', bg:'#fce7f3', cwAngle:STEP*5,
+    color:0xbe185d, hex:'#be185d', bg:'#fce7f3', cwAngle:STEP*4,
     desc:'Identifie les projets, packages de travail et solutions pour réaliser l\'architecture cible. Définit la première version de la feuille de route architecturale de transition.',
-    deliverables:['Architecture Roadmap (initial)','Implementation & Migration Strategy','Work Package Portfolio','Transition Architecture(s)','Architecture Building Blocks (ABBs)','Solution Building Blocks (SBBs)','Implementation Factor Assessment','Gap/Solution Matrix'],
-    delivDescs:['Feuille de route initiale des évolutions architecturales séquencées dans le temps avec jalons et dépendances.','Stratégie définissant l\'approche de migration (big bang, phased, parallel) et les principes directeurs.','Portefeuille des packages de travail identifiés pour réaliser les transitions architecturales planifiées.','États architecturaux intermédiaires pour passer progressivement de l\'architecture existante à la cible.','Blocs fonctionnels réutilisables décrivant les capacités nécessaires, indépendamment d\'un produit.','Composants de solution spécifiques (produits, technologies) implémentant les ABBs définis.','Évaluation des facteurs d\'implémentation : risques, hypothèses, dépendances et contraintes.','Matrice consolidée croisant les gaps identifiés avec les solutions architecturales proposées.'],
+    deliverables:['Architecture Roadmap (initial)','Implementation & Migration Strategy','Work Package Portfolio','Transition Architecture(s)','Architecture Building Blocks','Solution Building Blocks','Implementation Factor Assessment','Gap/Solution Matrix'],
+    delivDescs:[
+      'Feuille de route initiale des évolutions architecturales séquencées dans le temps avec jalons et dépendances.',
+      'Stratégie définissant l\'approche de migration (big bang, phased, parallel) et les principes directeurs.',
+      'Portefeuille des packages de travail identifiés pour réaliser les transitions architecturales planifiées.',
+      'États architecturaux intermédiaires pour passer progressivement de l\'architecture existante à la cible.',
+      'Blocs fonctionnels réutilisables décrivant les capacités nécessaires, indépendamment d\'un produit.',
+      'Composants de solution spécifiques (produits, technologies) implémentant les ABBs définis.',
+      'Évaluation des facteurs d\'implémentation : risques, hypothèses, dépendances et contraintes.',
+      'Matrice consolidée croisant les gaps identifiés avec les solutions architecturales proposées.'
+    ],
     roles:[
       {name:'Enterprise Architect', initials:'EA', resp:'Produit la roadmap, identifie les work packages, coordonne la cohérence des solutions proposées.'},
       {name:'PMO / Program Manager', initials:'PM', resp:'Évalue la faisabilité, intègre les contraintes de portefeuille et de budget.'},
@@ -299,13 +302,21 @@ const ADM_PHASES = [
       {name:'Finance / CDG', initials:'FI', resp:'Chiffre les projets, évalue le ROI et valide les enveloppes budgétaires associées.'}
     ]
   },
-  // ── PHASE F ── 8h = 240°
   {
     id:'F', label:'Phase F', sub:'Migration Planning',
-    color:0x0284c7, hex:'#0284c7', bg:'#e0f2fe', cwAngle:STEP*6,
+    color:0x0284c7, hex:'#0284c7', bg:'#e0f2fe', cwAngle:STEP*5,
     desc:'Finalise le plan de migration détaillé avec priorités, dépendances, coûts et jalons. Produit le plan d\'implémentation définitif validé et approuvé par l\'Architecture Board.',
     deliverables:['Finalized Architecture Roadmap','Implementation & Migration Plan','Transition Architectures finalisées','Architecture Contract (ébauche)','Business Value Assessment','Risk Register mis à jour','Planning Board détaillé','Communication Plan migration'],
-    delivDescs:['Version définitive et approuvée de la roadmap avec priorités, budgets, responsables et jalons détaillés.','Plan détaillé d\'implémentation et de migration : activités, ressources, planning, risques et indicateurs.','Documentation finale des architectures de transition validées et approuvées par l\'Architecture Board.','Avant-contrat définissant les engagements entre équipes de développement et l\'architecture.','Évaluation formelle de la valeur métier générée par chaque work package : ROI et bénéfices.','Mise à jour du registre des risques intégrant les nouveaux risques identifiés lors du planning.','Tableau de bord de planification détaillant la séquence des work packages et leurs dépendances.','Plan de communication spécifique à la migration : audiences, messages, canaux et fréquences.'],
+    delivDescs:[
+      'Version définitive et approuvée de la roadmap avec priorités, budgets, responsables et jalons détaillés.',
+      'Plan détaillé d\'implémentation et de migration : activités, ressources, planning, risques et indicateurs.',
+      'Documentation finale des architectures de transition validées et approuvées par l\'Architecture Board.',
+      'Avant-contrat définissant les engagements entre équipes de développement et l\'architecture.',
+      'Évaluation formelle de la valeur métier générée par chaque work package : ROI et bénéfices.',
+      'Mise à jour du registre des risques intégrant les nouveaux risques identifiés lors du planning.',
+      'Tableau de bord de planification détaillant la séquence des work packages et leurs dépendances.',
+      'Plan de communication spécifique à la migration : audiences, messages, canaux et fréquences.'
+    ],
     roles:[
       {name:'Lead Architect', initials:'LA', resp:'Finalise et valide la roadmap, assure la cohérence globale du plan de migration.'},
       {name:'Program / Portfolio Manager', initials:'PP', resp:'Séquence les projets selon les dépendances, risques et capacité organisationnelle.'},
@@ -313,13 +324,21 @@ const ADM_PHASES = [
       {name:'Architecture Board', initials:'AB', resp:'Approuve formellement le plan de migration et les architectures de transition.'}
     ]
   },
-  // ── PHASE G ── 9h20 = 280°
   {
     id:'G', label:'Phase G', sub:'Implementation Governance',
-    color:0x059669, hex:'#059669', bg:'#d1fae5', cwAngle:STEP*7,
+    color:0x059669, hex:'#059669', bg:'#d1fae5', cwAngle:STEP*6,
     desc:'Assure la conformité des projets d\'implémentation avec l\'architecture définie. Maintient une gouvernance architecturale continue tout au long du déploiement des solutions.',
     deliverables:['Architecture Contract (signé)','Compliance Assessment Reports','Architecture Compliance Waivers','Change Requests','Impact Analysis Reports','Updated Architecture Repository','Lessons Learned','Architecture Compliance Reviews'],
-    delivDescs:['Contrat signé entre l\'Architecture Board et les équipes de livraison définissant les engagements qualité.','Rapports d\'évaluation de la conformité des projets en cours par rapport à l\'architecture approuvée.','Dérogations formelles accordées pour les projets ne pouvant pas respecter intégralement les standards.','Demandes de modification formelles de l\'architecture soumises par les équipes projets ou les métiers.','Analyses d\'impact des changements demandés sur l\'architecture existante et les projets en cours.','Repository mis à jour avec tous les artefacts produits lors des phases d\'implémentation.','Retours d\'expérience capitalisés sur le cycle ADM pour améliorer les pratiques architecturales.','Revues formelles de conformité architecturale conduites à chaque jalon clé des projets.'],
+    delivDescs:[
+      'Contrat signé entre l\'Architecture Board et les équipes de livraison définissant les engagements qualité.',
+      'Rapports d\'évaluation de la conformité des projets en cours par rapport à l\'architecture approuvée.',
+      'Dérogations formelles accordées pour les projets ne pouvant pas respecter intégralement les standards.',
+      'Demandes de modification formelles de l\'architecture soumises par les équipes projets ou les métiers.',
+      'Analyses d\'impact des changements demandés sur l\'architecture existante et les projets en cours.',
+      'Repository mis à jour avec tous les artefacts produits lors des phases d\'implémentation.',
+      'Retours d\'expérience capitalisés sur le cycle ADM pour améliorer les pratiques architecturales.',
+      'Revues formelles de conformité architecturale conduites à chaque jalon clé des projets.'
+    ],
     roles:[
       {name:'Architecture Board', initials:'AB', resp:'Conduit les revues de conformité, émet les waivers, arbitre les écarts architecturaux.'},
       {name:'Enterprise Architect', initials:'EA', resp:'Accompagne les projets, répond aux questions d\'architecture, met à jour le repository.'},
@@ -327,51 +346,87 @@ const ADM_PHASES = [
       {name:'Audit / Quality Assurance', initials:'QA', resp:'Vérifie indépendamment la conformité des livrables aux standards architecturaux définis.'}
     ]
   },
-  // ── PHASE H ── 10h40 = 320°
   {
     id:'H', label:'Phase H', sub:'Architecture Change Mgmt',
-    color:0x16a34a, hex:'#16a34a', bg:'#f0fdf4', cwAngle:STEP*8,
+    color:0x16a34a, hex:'#16a34a', bg:'#f0fdf4', cwAngle:STEP*7,
     desc:'Gère les changements de l\'architecture opérationnelle. Détermine si les changements nécessitent le déclenchement d\'un nouveau cycle ADM complet ou partiel.',
-    deliverables:['Architecture Updates','Change Requests (évalués)','New Request for Architecture Work','Architecture Repository mis à jour','Performance Metrics','Capacity Plan','Technology Obsolescence Roadmap','Architecture Compliance Reports finaux'],
-    delivDescs:['Mises à jour de l\'architecture opérationnelle suite aux changements approuvés et déployés en production.','Demandes de changement évaluées selon impact architectural, urgence et alignement stratégique.','Nouvelle demande de travail architectural déclenchée par des changements majeurs justifiant un nouveau cycle.','Repository intégrant tous les changements architecturaux validés et les nouveaux artefacts produits.','Indicateurs de performance de l\'architecture opérationnelle mesurant l\'atteinte des objectifs définis.','Plan de capacité prévisionnel intégrant les évolutions de charge et besoins futurs en ressources IT.','Feuille de route gérant les obsolescences technologiques identifiées avec les plans de remplacement.','Rapports finaux de conformité clôturant le cycle et documentant le niveau d\'atteinte des objectifs.'],
+    deliverables:['Architecture Updates','Change Requests (évalués)','New Request for Architecture Work','Architecture Repository mis à jour','Performance Metrics','Capacity Plan','Technology Obsolescence Roadmap','Compliance Reports finaux'],
+    delivDescs:[
+      'Mises à jour de l\'architecture opérationnelle suite aux changements approuvés et déployés en production.',
+      'Demandes de changement évaluées selon impact architectural, urgence et alignement stratégique.',
+      'Nouvelle demande de travail architectural déclenchée par des changements majeurs justifiant un nouveau cycle.',
+      'Repository intégrant tous les changements architecturaux validés et les nouveaux artefacts produits.',
+      'Indicateurs de performance de l\'architecture opérationnelle mesurant l\'atteinte des objectifs définis.',
+      'Plan de capacité prévisionnel intégrant les évolutions de charge et besoins futurs en ressources IT.',
+      'Feuille de route gérant les obsolescences technologiques identifiées avec les plans de remplacement.',
+      'Rapports finaux de conformité clôturant le cycle et documentant le niveau d\'atteinte des objectifs.'
+    ],
     roles:[
       {name:'Enterprise Architect', initials:'EA', resp:'Évalue les demandes de changement, met à jour le repository, décide du déclenchement d\'un nouveau cycle.'},
       {name:'Architecture Board', initials:'AB', resp:'Valide les changements majeurs, définit le niveau d\'urgence et la gouvernance associée.'},
       {name:'IT Operations / Run', initials:'IT', resp:'Remonte les évolutions technologiques, incidents récurrents et obsolescences détectées.'},
       {name:'Business Stakeholders', initials:'BS', resp:'Initient des demandes de changement suite à des évolutions réglementaires ou stratégiques.'}
     ]
-  },
-  // ── CENTRE : Requirements Management ──
-  {
-    id:'REQ', label:'Requirements Mgmt', sub:'Processus Central Continu',
-    color:0x0891b2, hex:'#0891b2', bg:'#cffafe', cwAngle:0, isCenter:true,
-    desc:'Processus continu central qui gère les exigences architecturales tout au long du cycle ADM. Il alimente et reçoit des informations de toutes les phases du cycle — c\'est le fil conducteur permanent.',
-    deliverables:['Requirements Repository','Requirements Impact Assessment','Architecture Requirements Specification','Requirements Traceability Matrix','Prioritized Requirements Backlog','Stakeholder Requirements (par phase)'],
-    delivDescs:['Base de données centralisée de toutes les exigences architecturales avec statut, source et traçabilité.','Évaluation de l\'impact des nouvelles exigences sur l\'architecture existante et les travaux en cours.','Spécification formelle des exigences architecturales pour chaque domaine : métier, SI, technique.','Matrice assurant la traçabilité entre les exigences métier et les décisions/composants architecturaux.','Backlog priorisé des exigences architecturales en attente de traitement dans les prochains cycles.','Exigences spécifiques des parties prenantes capturées et reformalisées pour chaque phase du cycle.'],
-    roles:[
-      {name:'Requirements Manager', initials:'RM', resp:'Maintient le repository des exigences, assure la traçabilité et l\'impact sur toutes les phases.'},
-      {name:'Enterprise Architect', initials:'EA', resp:'Traduit les besoins métier en exigences architecturales, valide la cohérence cross-phases.'},
-      {name:'Business Analysts', initials:'BA', resp:'Capturent et formalisent les exigences métier, assurent la liaison avec les parties prenantes.'},
-      {name:'Quality Assurance', initials:'QA', resp:'Vérifie la complétude, cohérence et testabilité des exigences tout au long du cycle ADM.'}
-    ]
   }
 ];
 
-// ══════════════════════════════════════════════════════════════════════
-// THREE.JS
-// ══════════════════════════════════════════════════════════════════════
+const PRELIM_PHASE = {
+  id:'PRELIM', label:'Preliminary', sub:'Cadrage & Principes',
+  color:0x64748b, hex:'#64748b', bg:'#f1f5f9', isPrelim:true,
+  desc:'Définit le cadre et les principes architecturaux. Prépare l\'organisation à entreprendre des projets d\'architecture d\'entreprise de manière structurée. Phase préliminaire hors du cycle itératif principal — elle alimente et conditionne toutes les phases du cycle ADM.',
+  deliverables:['Principes d\'Architecture','Cadre d\'Architecture organisationnel','Repository d\'Architecture','Charte de gouvernance','Catalogue des parties prenantes','Outils et techniques sélectionnés'],
+  delivDescs:[
+    'Ensemble de règles fondamentales guidant l\'utilisation et le déploiement des ressources IT à travers l\'organisation.',
+    'Définit comment l\'architecture sera développée, gérée et utilisée, incluant les processus, rôles et outils.',
+    'Référentiel central stockant tous les artefacts architecturaux, modèles, patterns et décisions d\'architecture.',
+    'Document fondateur établissant les règles de gouvernance, mécanismes de décision et processus de revue.',
+    'Inventaire exhaustif des parties prenantes impliquées, leurs intérêts, préoccupations et niveaux d\'influence.',
+    'Sélection des outils de modélisation (ArchiMate, UML) et plateformes de repository à utiliser.'
+  ],
+  roles:[
+    {name:'Chief Architect / DSIO', initials:'CA', resp:'Sponsor exécutif — valide les principes, alloue le budget. Définit l\'ambition architecturale de l\'organisation.'},
+    {name:'Architecture Board', initials:'AB', resp:'Valide le cadre de gouvernance, approuve les principes et assure l\'alignement stratégique.'},
+    {name:'Enterprise Architect', initials:'EA', resp:'Élabore les principes, sélectionne les outils, définit le repository et pilote la mise en place du cadre.'},
+    {name:'RH & Change Management', initials:'RH', resp:'Accompagne la conduite du changement et la formation des équipes aux pratiques d\'architecture.'}
+  ]
+};
+
+const REQ_PHASE = {
+  id:'REQ', label:'Requirements Mgmt', sub:'Processus Central Continu',
+  color:0x0891b2, hex:'#0891b2', bg:'#cffafe', isCenter:true,
+  desc:'Processus continu central qui gère les exigences architecturales tout au long du cycle ADM. Il alimente et reçoit des informations de toutes les phases du cycle — c\'est le fil conducteur permanent de l\'ensemble du processus.',
+  deliverables:['Requirements Repository','Requirements Impact Assessment','Architecture Requirements Spec.','Requirements Traceability Matrix','Prioritized Requirements Backlog','Stakeholder Requirements (par phase)'],
+  delivDescs:[
+    'Base de données centralisée de toutes les exigences architecturales avec leur statut, source et traçabilité.',
+    'Évaluation de l\'impact des nouvelles exigences sur l\'architecture existante et les travaux en cours.',
+    'Spécification formelle des exigences architecturales pour chaque domaine : métier, SI, technique.',
+    'Matrice assurant la traçabilité entre les exigences métier et les décisions/composants architecturaux.',
+    'Backlog priorisé des exigences architecturales en attente de traitement dans les prochains cycles.',
+    'Exigences spécifiques des parties prenantes capturées et reformalisées pour chaque phase du cycle ADM.'
+  ],
+  roles:[
+    {name:'Requirements Manager', initials:'RM', resp:'Maintient le repository des exigences, assure la traçabilité et l\'impact sur toutes les phases.'},
+    {name:'Enterprise Architect', initials:'EA', resp:'Traduit les besoins métier en exigences architecturales, valide la cohérence cross-phases.'},
+    {name:'Business Analysts', initials:'BA', resp:'Capturent et formalisent les exigences métier, assurent la liaison avec les parties prenantes.'},
+    {name:'Quality Assurance', initials:'QA', resp:'Vérifie la complétude, cohérence et testabilité des exigences tout au long du cycle ADM.'}
+  ]
+};
+
+// ══════════════════════════════════════════════════════
+// THREE.JS SETUP
+// ══════════════════════════════════════════════════════
 const W = window.innerWidth, H = window.innerHeight;
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xf0ede6);
-scene.fog = new THREE.Fog(0xf0ede6, 38, 85);
+scene.fog = new THREE.Fog(0xf0ede6, 42, 90);
 
 const camera = new THREE.PerspectiveCamera(50, W/H, 0.1, 200);
-camera.position.set(0, 9, 22);
+camera.position.set(0, 10, 24);
 camera.lookAt(0, 0, 0);
 
 const renderer = new THREE.WebGLRenderer({ antialias:true });
 renderer.setSize(W, H);
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -379,247 +434,318 @@ renderer.toneMappingExposure = 1.15;
 document.body.appendChild(renderer.domElement);
 
 // Lights
-scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d0c0, 0.75));
+scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d0c0, 0.8));
 const sun = new THREE.DirectionalLight(0xfff8f0, 1.8);
 sun.position.set(12, 18, 8);
 sun.castShadow = true;
 sun.shadow.mapSize.set(1024,1024);
-sun.shadow.camera.left = -20; sun.shadow.camera.right = 20;
-sun.shadow.camera.top = 20; sun.shadow.camera.bottom = -20;
+sun.shadow.camera.left=-24; sun.shadow.camera.right=24;
+sun.shadow.camera.top=24; sun.shadow.camera.bottom=-24;
 scene.add(sun);
-scene.add(new THREE.DirectionalLight(0xe0f0ff, 0.4)).position.set(-8,4,-6);
+const fill = new THREE.DirectionalLight(0xe0f0ff, 0.35);
+fill.position.set(-8,4,-6); scene.add(fill);
 
-// ── Node texture ──
-function makeNodeTex(phase) {
+// ── Node texture factory ──
+function makeNodeTex(phase, size=256) {
   const c = document.createElement('canvas');
-  c.width = 256; c.height = 256;
+  c.width = size; c.height = size;
   const ctx = c.getContext('2d');
-  ctx.clearRect(0,0,256,256);
+  ctx.clearRect(0,0,size,size);
+  const s = size/256; // scale factor
 
-  // Hex shape
-  ctx.beginPath();
-  for(let i=0;i<6;i++){
-    const a=i*Math.PI/3-Math.PI/6;
-    ctx[i?'lineTo':'moveTo'](128+106*Math.cos(a),128+106*Math.sin(a));
-  }
-  ctx.closePath();
-  ctx.fillStyle = phase.bg+'f0';
-  ctx.fill();
-  ctx.strokeStyle = phase.hex+'bb';
-  ctx.lineWidth = 5; ctx.stroke();
-
-  if(phase.isCenter) {
-    // Inner ring for center
+  if(phase.isPrelim) {
+    // Diamond shape for Preliminary
+    ctx.beginPath();
+    ctx.moveTo(size*0.5, size*0.04);
+    ctx.lineTo(size*0.96, size*0.5);
+    ctx.lineTo(size*0.5, size*0.96);
+    ctx.lineTo(size*0.04, size*0.5);
+    ctx.closePath();
+    ctx.fillStyle = phase.bg+'f0';
+    ctx.fill();
+    ctx.strokeStyle = phase.hex+'bb';
+    ctx.lineWidth = 5*s; ctx.stroke();
+  } else {
+    // Hexagon
     ctx.beginPath();
     for(let i=0;i<6;i++){
       const a=i*Math.PI/3-Math.PI/6;
-      ctx[i?'lineTo':'moveTo'](128+78*Math.cos(a),128+78*Math.sin(a));
+      ctx[i?'lineTo':'moveTo'](size*0.5+size*0.415*Math.cos(a), size*0.5+size*0.415*Math.sin(a));
     }
     ctx.closePath();
-    ctx.strokeStyle = phase.hex+'55';
-    ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = phase.bg+'f0';
+    ctx.fill();
+    ctx.strokeStyle = phase.hex+'bb';
+    ctx.lineWidth = 5*s; ctx.stroke();
+
+    if(phase.isCenter) {
+      ctx.beginPath();
+      for(let i=0;i<6;i++){
+        const a=i*Math.PI/3-Math.PI/6;
+        ctx[i?'lineTo':'moveTo'](size*0.5+size*0.3*Math.cos(a), size*0.5+size*0.3*Math.sin(a));
+      }
+      ctx.closePath();
+      ctx.strokeStyle = phase.hex+'44';
+      ctx.lineWidth = 2*s; ctx.stroke();
+    }
   }
 
-  // Phase ID / icon
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.font = phase.isCenter ? '28px serif' : 'bold 28px "Outfit",sans-serif';
-  ctx.fillStyle = phase.hex;
-  ctx.fillText(phase.isCenter ? '⟳' : phase.id, 128, 95);
+  ctx.textAlign='center'; ctx.textBaseline='middle';
 
-  // Label
-  ctx.font = 'bold 19px "Outfit",sans-serif';
-  ctx.fillStyle = '#1a1a2e';
-  ctx.fillText(phase.label, 128, 136);
+  if(phase.isCenter) {
+    ctx.font=`${28*s}px serif`;
+    ctx.fillStyle=phase.hex;
+    ctx.fillText('⟳', size*0.5, size*0.37);
+  } else if(phase.isPrelim) {
+    ctx.font=`bold ${22*s}px "Outfit",sans-serif`;
+    ctx.fillStyle=phase.hex;
+    ctx.fillText('PRE', size*0.5, size*0.37);
+  } else {
+    ctx.font=`bold ${28*s}px "Outfit",sans-serif`;
+    ctx.fillStyle=phase.hex;
+    ctx.fillText(phase.id, size*0.5, size*0.37);
+  }
 
-  // Sub — word wrap
-  ctx.font = '11px "DM Mono",monospace';
-  ctx.fillStyle = '#6b6b8a';
-  const words = phase.sub.split(' ');
-  let line='', lines=[];
+  ctx.font=`bold ${19*s}px "Outfit",sans-serif`;
+  ctx.fillStyle='#1a1a2e';
+  ctx.fillText(phase.label, size*0.5, size*0.535);
+
+  ctx.font=`${11*s}px "DM Mono",monospace`;
+  ctx.fillStyle='#6b6b8a';
+  const words=phase.sub.split(' ');
+  let line='',lines=[];
   words.forEach(w=>{
-    const t = line ? line+' '+w : w;
-    if(ctx.measureText(t).width > 180 && line){ lines.push(line); line=w; }
+    const t=line?line+' '+w:w;
+    if(ctx.measureText(t).width>size*0.72&&line){lines.push(line);line=w;}
     else line=t;
   });
   lines.push(line);
-  lines.forEach((l,i) => ctx.fillText(l, 128, 162+i*15));
+  lines.forEach((l,i)=>ctx.fillText(l,size*0.5,size*0.635+i*15*s));
 
   return new THREE.CanvasTexture(c);
 }
 
-// ── BUILD NODES ──
 const ORBIT_R = 8.5;
-const nodeObjects = [];
+const nodeObjects = []; // cycle phases only
 const group = new THREE.Group();
 scene.add(group);
 
-// Direction arrows between phases (clockwise indicators)
-const arrowPositions = [];
-
-ADM_PHASES.forEach((phase) => {
-  if(phase.isCenter) return;
-
-  // CLOCKWISE in top view:
-  // cwAngle=0 → top (12h), cwAngle=40 → 1h20, etc.
-  // x = sin(cwAngle_rad) * R   (positive x = right)
-  // z = cos(cwAngle_rad) * R   (positive z = front)
-  // This gives clockwise rotation as angle increases
+// ── CYCLE PHASES (A→H on ring) ──
+CYCLE_PHASES.forEach((phase) => {
+  // Clockwise: x=sin, z=cos, angle increasing = clockwise top view
   const rad = (phase.cwAngle * Math.PI) / 180;
   const x = Math.sin(rad) * ORBIT_R;
   const z = Math.cos(rad) * ORBIT_R;
-  const y = 0; // flat ring, no elevation variation
 
-  const geo = new THREE.CylinderGeometry(1.1, 1.1, 0.30, 6, 1);
+  const geo = new THREE.CylinderGeometry(1.1,1.1,0.30,6,1);
   const mat = new THREE.MeshStandardMaterial({
-    color: phase.color,
-    roughness: 0.2,
-    metalness: 0.55,
-    transparent: true,
-    opacity: 0.93
+    color:phase.color, roughness:0.2, metalness:0.55, transparent:true, opacity:0.93
   });
   const hexMesh = new THREE.Mesh(geo, mat);
   hexMesh.castShadow = true;
 
-  // Top label plane
   const texP = new THREE.Mesh(
-    new THREE.PlaneGeometry(2.1, 2.1),
-    new THREE.MeshBasicMaterial({ map: makeNodeTex(phase), transparent: true, depthWrite: false })
+    new THREE.PlaneGeometry(2.1,2.1),
+    new THREE.MeshBasicMaterial({map:makeNodeTex(phase),transparent:true,depthWrite:false})
   );
   texP.rotation.x = -Math.PI/2;
   texP.position.y = 0.16;
 
-  // Shadow disc
   const sdisk = new THREE.Mesh(
-    new THREE.CircleGeometry(1.18, 32),
-    new THREE.MeshBasicMaterial({ color:0x000000, transparent:true, opacity:0.07, depthWrite:false })
+    new THREE.CircleGeometry(1.18,32),
+    new THREE.MeshBasicMaterial({color:0x000000,transparent:true,opacity:0.07,depthWrite:false})
   );
-  sdisk.rotation.x = -Math.PI/2;
-  sdisk.position.y = -0.22;
+  sdisk.rotation.x=-Math.PI/2; sdisk.position.y=-0.22;
 
   const ng = new THREE.Group();
   ng.add(hexMesh); ng.add(texP); ng.add(sdisk);
-  ng.position.set(x, y, z);
-  ng.userData = { phase, originalY: y };
+  ng.position.set(x, 0, z);
+  ng.userData = {phase, originalY:0};
   group.add(ng);
-  nodeObjects.push({ group: ng, hex: hexMesh, phase, rad, x, z, y });
-  arrowPositions.push({ angle: rad, color: phase.color });
+  nodeObjects.push({group:ng, hex:hexMesh, phase, rad, x, z});
 });
 
-// ── CLOCKWISE ARROWS on orbit ring ──
-// Place small arrow cones between each pair of adjacent phases
-nodeObjects.forEach((node, i) => {
-  const next = nodeObjects[(i+1) % nodeObjects.length];
-  // Midpoint angle
-  let a1 = node.rad, a2 = next.rad;
-  if(a2 < a1) a2 += Math.PI*2; // wrap
-  const mid = (a1 + a2) / 2;
-  const arrowR = ORBIT_R + 0.05;
-  const ax = Math.sin(mid) * arrowR;
-  const az = Math.cos(mid) * arrowR;
+// ── CLOCKWISE ARROWS between adjacent phases ──
+CYCLE_PHASES.forEach((phase, i) => {
+  const next = CYCLE_PHASES[(i+1) % CYCLE_PHASES.length];
+  let a1 = (phase.cwAngle*Math.PI/180);
+  let a2 = (next.cwAngle*Math.PI/180);
+  if(next.cwAngle < phase.cwAngle) a2 += Math.PI*2;
+  const mid = (a1+a2)/2;
+  const aR = ORBIT_R + 0.12;
 
-  // Arrow direction: tangent to circle, clockwise = (cos(mid), 0, -sin(mid))
   const cone = new THREE.Mesh(
-    new THREE.ConeGeometry(0.15, 0.4, 8),
-    new THREE.MeshStandardMaterial({ color: node.phase.color, roughness:0.3, metalness:0.4, transparent:true, opacity:0.7 })
+    new THREE.ConeGeometry(0.13,0.38,8),
+    new THREE.MeshStandardMaterial({
+      color:phase.color, roughness:0.3, metalness:0.4, transparent:true, opacity:0.65
+    })
   );
-  cone.position.set(ax, 0.05, az);
-  // Rotate to point clockwise tangent direction
-  // Tangent CW: d/d(cwAngle) of (sin,cos) = (cos,-sin) → pointing in tangent direction
-  const tangentAngle = Math.atan2(Math.cos(mid), -Math.sin(mid));
-  cone.rotation.set(Math.PI/2, 0, 0); // lay flat
-  cone.rotation.y = -mid + Math.PI/2; // orient tangentially clockwise
+  cone.position.set(Math.sin(mid)*aR, 0.04, Math.cos(mid)*aR);
+  // Point tangentially in clockwise direction
+  // CW tangent at angle mid: direction = (cos(mid), 0, -sin(mid))
+  // Cone default points along +Y, we need to rotate to tangent direction
+  // tangent angle from +Z axis = mid + π/2  (clockwise)
+  cone.rotation.set(Math.PI/2, 0, 0);
+  cone.rotation.y = -(mid - Math.PI/2);
   group.add(cone);
 });
 
-// ── CENTER NODE ──
-const centerPhase = ADM_PHASES.find(p => p.isCenter);
-const cGeo = new THREE.CylinderGeometry(1.72, 1.72, 0.40, 6, 1);
-const cMat = new THREE.MeshStandardMaterial({ color:0x0891b2, roughness:0.18, metalness:0.6, transparent:true, opacity:0.95 });
+// ── PRELIMINARY — outside ring, above Phase A (12h position) ──
+// Phase A is at cwAngle=0 → x=0, z=ORBIT_R
+// Preliminary sits further out + elevated
+const PRELIM_R = ORBIT_R + 3.5;   // further out radially
+const PRELIM_Y = 2.0;              // elevated above the ring plane
+const prelX = 0;                   // same x as Phase A (cwAngle=0 → sin(0)=0)
+const prelZ = PRELIM_R;            // same direction as Phase A
+
+// Diamond shape for Preliminary
+const prelimGeo = new THREE.BoxGeometry(2.1, 0.28, 2.1);
+const prelimMat = new THREE.MeshStandardMaterial({
+  color:0x64748b, roughness:0.25, metalness:0.5, transparent:true, opacity:0.9
+});
+const prelimMesh = new THREE.Mesh(prelimGeo, prelimMat);
+prelimMesh.rotation.y = Math.PI/4; // rotate 45° to look like diamond
+prelimMesh.castShadow = true;
+
+const prelimTexP = new THREE.Mesh(
+  new THREE.PlaneGeometry(2.5,2.5),
+  new THREE.MeshBasicMaterial({map:makeNodeTex(PRELIM_PHASE,280),transparent:true,depthWrite:false})
+);
+prelimTexP.rotation.x = -Math.PI/2;
+prelimTexP.position.y = 0.15;
+
+// Shadow disc under prelim
+const prelimSdisk = new THREE.Mesh(
+  new THREE.CircleGeometry(1.35,32),
+  new THREE.MeshBasicMaterial({color:0x000000,transparent:true,opacity:0.06,depthWrite:false})
+);
+prelimSdisk.rotation.x=-Math.PI/2; prelimSdisk.position.y=-0.2;
+
+const prelimGroup = new THREE.Group();
+prelimGroup.add(prelimMesh); prelimGroup.add(prelimTexP); prelimGroup.add(prelimSdisk);
+prelimGroup.position.set(prelX, PRELIM_Y, prelZ);
+prelimGroup.userData = {phase:PRELIM_PHASE, isPrelim:true, originalY:PRELIM_Y};
+group.add(prelimGroup);
+
+// ── CONNECTOR: Preliminary → Phase A (dashed-style line) ──
+// From prelim bottom to phase A top
+const phaseAPos = new THREE.Vector3(0, 0, ORBIT_R);
+const prelimPos = new THREE.Vector3(prelX, PRELIM_Y, prelZ);
+// Midpoint slightly bent
+const connPts = [
+  new THREE.Vector3(prelX, PRELIM_Y-0.18, prelZ),
+  new THREE.Vector3(0, PRELIM_Y/2, (ORBIT_R + PRELIM_R)/2),
+  new THREE.Vector3(0, 0.18, ORBIT_R)
+];
+const connCurve = new THREE.CatmullRomCurve3(connPts);
+const connPoints = connCurve.getPoints(30);
+const connGeo = new THREE.BufferGeometry().setFromPoints(connPoints);
+const connLine = new THREE.Line(connGeo,
+  new THREE.LineBasicMaterial({color:0x64748b, transparent:true, opacity:0.5})
+);
+group.add(connLine);
+
+// Arrowhead at Phase A end
+const connArrow = new THREE.Mesh(
+  new THREE.ConeGeometry(0.12,0.32,8),
+  new THREE.MeshStandardMaterial({color:0x64748b, roughness:0.3, metalness:0.4, transparent:true, opacity:0.7})
+);
+connArrow.position.set(0, 0.22, ORBIT_R+0.05);
+connArrow.rotation.x = Math.PI; // point downward
+group.add(connArrow);
+
+// Label "Feeds cycle" on connector
+const lblCanvas = document.createElement('canvas');
+lblCanvas.width=220; lblCanvas.height=40;
+const lblCtx = lblCanvas.getContext('2d');
+lblCtx.fillStyle='rgba(100,116,139,0.0)'; lblCtx.fillRect(0,0,220,40);
+lblCtx.font='bold 13px "DM Mono",monospace';
+lblCtx.fillStyle='#64748b';
+lblCtx.textAlign='center'; lblCtx.textBaseline='middle';
+lblCtx.fillText('ALIMENTE LE CYCLE', 110, 20);
+const lblTex = new THREE.CanvasTexture(lblCanvas);
+const lblMesh = new THREE.Mesh(
+  new THREE.PlaneGeometry(2.0,0.36),
+  new THREE.MeshBasicMaterial({map:lblTex,transparent:true,depthWrite:false,side:THREE.DoubleSide})
+);
+lblMesh.position.set(0, PRELIM_Y*0.52, (ORBIT_R+PRELIM_R)/2 + 0.3);
+group.add(lblMesh);
+
+// ── CENTER NODE — Requirements Management ──
+const cGeo = new THREE.CylinderGeometry(1.72,1.72,0.40,6,1);
+const cMat = new THREE.MeshStandardMaterial({
+  color:0x0891b2, roughness:0.18, metalness:0.6, transparent:true, opacity:0.95
+});
 const cMesh = new THREE.Mesh(cGeo, cMat);
 cMesh.castShadow = true;
 
 const cTexP = new THREE.Mesh(
-  new THREE.PlaneGeometry(3.1, 3.1),
-  new THREE.MeshBasicMaterial({ map: makeNodeTex(centerPhase), transparent:true, depthWrite:false })
+  new THREE.PlaneGeometry(3.1,3.1),
+  new THREE.MeshBasicMaterial({map:makeNodeTex(REQ_PHASE),transparent:true,depthWrite:false})
 );
-cTexP.rotation.x = -Math.PI/2;
-cTexP.position.y = 0.22;
+cTexP.rotation.x=-Math.PI/2; cTexP.position.y=0.22;
 
-// Pulsing outer ring
 const pRing = new THREE.Mesh(
-  new THREE.TorusGeometry(2.1, 0.045, 8, 64),
-  new THREE.MeshBasicMaterial({ color:0x0891b2, transparent:true, opacity:0.35 })
+  new THREE.TorusGeometry(2.1,0.045,8,64),
+  new THREE.MeshBasicMaterial({color:0x0891b2,transparent:true,opacity:0.35})
 );
-pRing.rotation.x = Math.PI/2;
-
-// Inner dashed ring (visual)
+pRing.rotation.x=Math.PI/2;
 const iRing = new THREE.Mesh(
-  new THREE.TorusGeometry(2.6, 0.02, 8, 64),
-  new THREE.MeshBasicMaterial({ color:0x0891b2, transparent:true, opacity:0.15 })
+  new THREE.TorusGeometry(2.6,0.02,8,64),
+  new THREE.MeshBasicMaterial({color:0x0891b2,transparent:true,opacity:0.15})
 );
-iRing.rotation.x = Math.PI/2;
+iRing.rotation.x=Math.PI/2;
 
 const cGroup = new THREE.Group();
 cGroup.add(cMesh); cGroup.add(cTexP); cGroup.add(pRing); cGroup.add(iRing);
-cGroup.userData = { phase: centerPhase, isCenter: true };
+cGroup.userData = {phase:REQ_PHASE, isCenter:true};
 group.add(cGroup);
 
 // ── ORBIT RING ──
-const orbitMat = new THREE.MeshBasicMaterial({ color:0x94a3b8, transparent:true, opacity:0.25 });
-const orbitMesh = new THREE.Mesh(new THREE.TorusGeometry(ORBIT_R, 0.028, 8, 128), orbitMat);
-orbitMesh.rotation.x = Math.PI/2;
+const orbitMesh = new THREE.Mesh(
+  new THREE.TorusGeometry(ORBIT_R,0.028,8,128),
+  new THREE.MeshBasicMaterial({color:0x94a3b8,transparent:true,opacity:0.28})
+);
+orbitMesh.rotation.x=Math.PI/2;
 group.add(orbitMesh);
 
-// ── SPOKES — center to each node ──
-nodeObjects.forEach(({x,z,y}) => {
-  const pts = [new THREE.Vector3(0,0,0), new THREE.Vector3(x,y,z)];
-  const geo = new THREE.BufferGeometry().setFromPoints(pts);
-  group.add(new THREE.Line(geo, new THREE.LineBasicMaterial({ color:0xb0b8c8, transparent:true, opacity:0.25 })));
+// ── SPOKES — center to each cycle node ──
+nodeObjects.forEach(({x,z}) => {
+  const pts=[new THREE.Vector3(0,0,0),new THREE.Vector3(x,0,z)];
+  group.add(new THREE.Line(
+    new THREE.BufferGeometry().setFromPoints(pts),
+    new THREE.LineBasicMaterial({color:0xb0b8c8,transparent:true,opacity:0.22})
+  ));
 });
 
 // ── GROUND ──
 const gMesh = new THREE.Mesh(
-  new THREE.PlaneGeometry(70,70),
-  new THREE.MeshStandardMaterial({ color:0xe6e2d8, roughness:1 })
+  new THREE.PlaneGeometry(80,80),
+  new THREE.MeshStandardMaterial({color:0xe6e2d8,roughness:1})
 );
-gMesh.rotation.x = -Math.PI/2;
-gMesh.position.y = -1.5;
-gMesh.receiveShadow = true;
-scene.add(gMesh);
-const gh = new THREE.GridHelper(60, 60, 0xd4cfc4, 0xdad6cc);
-gh.position.y = -1.48;
-scene.add(gh);
+gMesh.rotation.x=-Math.PI/2; gMesh.position.y=-1.5;
+gMesh.receiveShadow=true; scene.add(gMesh);
+const gh = new THREE.GridHelper(70,70,0xd4cfc4,0xdad6cc);
+gh.position.y=-1.48; scene.add(gh);
 
-// ══════════════════════════════════════════════════════════════════════
-// PANEL HTML
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// PANEL HTML HELPERS
+// ══════════════════════════════════════════════════════
 const AVATAR_PALETTES = [
   ['#dbeafe','#1d4ed8'],['#ede9fe','#6d28d9'],['#fef3c7','#b45309'],
   ['#fee2e2','#b91c1c'],['#fce7f3','#9d174d'],['#e0f2fe','#0369a1'],
   ['#d1fae5','#065f46'],['#f0fdf4','#15803d'],['#cffafe','#0e7490'],
-  ['#fef9c3','#a16207'],['#fff7ed','#c2410c'],['#f5f3ff','#5b21b6'],
+  ['#fef9c3','#a16207'],['#f1f5f9','#475569'],['#f5f3ff','#5b21b6'],
 ];
 let avatarIdx = 0;
 
-function makeAvatarSVG(initials, pal) {
-  const [bg, fg] = pal;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44">
-    <circle cx="22" cy="22" r="22" fill="${bg}"/>
-    <circle cx="22" cy="18" r="8" fill="${fg}" opacity="0.85"/>
-    <ellipse cx="22" cy="37" rx="13" ry="9" fill="${fg}" opacity="0.7"/>
-    <text x="22" y="21" font-family="Outfit,sans-serif" font-size="9" font-weight="700"
-      fill="white" text-anchor="middle" dominant-baseline="middle">${initials}</text>
-  </svg>`;
-}
-
 function folderHTML(name, desc, color, bg) {
-  const key = 'f'+Math.random().toString(36).slice(2,8);
   return `<div class="folder-card" onclick="this.classList.toggle('open-folder')">
-    <div class="folder-tab" style="background:${color}30;border-top:2px solid ${color}90"></div>
+    <div class="folder-tab" style="background:${color}28;border-top:2px solid ${color}88"></div>
     <div class="folder-body" style="background:${bg}55">
       <div class="folder-icon-row">
         <svg width="20" height="17" viewBox="0 0 22 18" fill="none">
-          <path d="M0 3C0 1.9 .9 1 2 1H8L10 3H20C21.1 3 22 3.9 22 5V15C22 16.1 21.1 17 20 17H2C.9 17 0 16.1 0 15V3Z" fill="${color}" opacity="0.75"/>
+          <path d="M0 3C0 1.9.9 1 2 1H8L10 3H20C21.1 3 22 3.9 22 5V15C22 16.1 21.1 17 20 17H2C.9 17 0 16.1 0 15V3Z" fill="${color}" opacity="0.7"/>
           <path d="M0 6H22V15C22 16.1 21.1 17 20 17H2C.9 17 0 16.1 0 15V6Z" fill="${color}"/>
           <rect x="4" y="9" width="10" height="1.2" rx=".6" fill="white" opacity="0.55"/>
           <rect x="4" y="11.5" width="7" height="1.2" rx=".6" fill="white" opacity="0.38"/>
@@ -634,11 +760,19 @@ function folderHTML(name, desc, color, bg) {
 
 function avatarHTML(role, phaseColor) {
   const pal = AVATAR_PALETTES[avatarIdx++ % AVATAR_PALETTES.length];
-  const svg = makeAvatarSVG(role.initials, pal);
-  const url = URL.createObjectURL(new Blob([svg], {type:'image/svg+xml'}));
+  const [bg,fg] = pal;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+    <circle cx="22" cy="22" r="22" fill="${bg}"/>
+    <circle cx="22" cy="18" r="8" fill="${fg}" opacity="0.85"/>
+    <ellipse cx="22" cy="37" rx="13" ry="9" fill="${fg}" opacity="0.7"/>
+    <text x="22" y="21" font-family="Outfit,sans-serif" font-size="9" font-weight="700"
+      fill="white" text-anchor="middle" dominant-baseline="middle">${role.initials}</text>
+  </svg>`;
+  const url = URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
   return `<div class="role-row">
     <div style="flex-shrink:0">
-      <img src="${url}" width="44" height="44" style="border-radius:50%;border:2.5px solid ${phaseColor}44" alt="${role.name}"/>
+      <img src="${url}" width="44" height="44"
+        style="border-radius:50%;border:2.5px solid ${phaseColor}44" alt="${role.name}"/>
     </div>
     <div>
       <div class="role-name">${role.name}</div>
@@ -653,37 +787,44 @@ function openPanel(phase) {
   const content = document.getElementById('panel-content');
 
   const folders = phase.deliverables.map((d,i) =>
-    folderHTML(d, phase.delivDescs[i] || '—', phase.hex, phase.bg)
+    folderHTML(d, phase.delivDescs[i]||'—', phase.hex, phase.bg)
   ).join('');
   const avatars = phase.roles.map(r => avatarHTML(r, phase.hex)).join('');
 
-  const phaseNum = phase.isCenter ? '⊙ PROCESSUS CENTRAL' : (phase.id === 'PRELIM' ? 'PHASE · PRELIMINARY' : 'PHASE · '+phase.id);
-  const prevPhase = phase.isCenter ? null : (() => {
-    const idx = ADM_PHASES.filter(p=>!p.isCenter).findIndex(p=>p.id===phase.id);
-    const prev = ADM_PHASES.filter(p=>!p.isCenter)[(idx+8)%9];
-    const next = ADM_PHASES.filter(p=>!p.isCenter)[(idx+1)%9];
-    return `<div style="display:flex;gap:8px;margin-bottom:18px;font-family:'DM Mono';font-size:10px;">
-      <span style="color:var(--ink3)">◀ ${prev.id==='PRELIM'?'Preliminary':prev.id}</span>
-      <span style="color:var(--ink3);flex:1;text-align:center;letter-spacing:0.1em">SENS HORAIRE ↻</span>
-      <span style="color:var(--ink3)">${next.id==='PRELIM'?'Preliminary':next.id} ▶</span>
+  // Nav prev/next for cycle phases
+  let navHTML = '';
+  if(!phase.isCenter && !phase.isPrelim) {
+    const idx = CYCLE_PHASES.findIndex(p=>p.id===phase.id);
+    const prev = CYCLE_PHASES[(idx+7)%8];
+    const next = CYCLE_PHASES[(idx+1)%8];
+    navHTML = `<div class="phase-nav">
+      <span>◀ Phase ${prev.id}</span>
+      <span style="flex:1;text-align:center;letter-spacing:.1em">SENS HORAIRE ↻</span>
+      <span>Phase ${next.id} ▶</span>
     </div>`;
-  })();
+  } else if(phase.isPrelim) {
+    navHTML = `<div class="phase-nav" style="justify-content:center;">
+      <span style="color:#64748b">⟶ Alimente la Phase A et l\'ensemble du cycle</span>
+    </div>`;
+  }
+
+  const tag = phase.isPrelim ? 'HORS CYCLE · PRELIMINARY'
+            : phase.isCenter ? '⊙ PROCESSUS CENTRAL'
+            : `PHASE · ${phase.id}`;
 
   content.innerHTML = `
     <div class="phase-tag" style="background:${phase.bg};color:${phase.hex};border:1px solid ${phase.hex}44">
-      ${phaseNum}
+      ${tag}
     </div>
     <div class="panel-title" style="color:${phase.hex}">${phase.label}</div>
     <div class="panel-sub">${phase.sub}</div>
-    ${prevPhase || ''}
+    ${navHTML}
     <div class="panel-desc">${phase.desc}</div>
-
     <div class="section-label" style="color:${phase.hex}">
       Livrables — ${phase.deliverables.length} artefacts
     </div>
     <div class="folders-grid">${folders}</div>
-
-    <div class="section-label" style="color:${phase.hex}" style="margin-top:8px">
+    <div class="section-label" style="color:${phase.hex}">
       Rôles & Responsabilités
     </div>
     <div class="roles-list">${avatars}</div>
@@ -694,67 +835,71 @@ function openPanel(phase) {
 function closePanel() { document.getElementById('panel').classList.remove('open'); }
 window.closePanel = closePanel;
 
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // RAYCASTING
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
-window.addEventListener('mousemove', e => {
-  mouse.x = (e.clientX/W)*2-1;
-  mouse.y = -(e.clientY/H)*2+1;
+window.addEventListener('mousemove', e=>{
+  mouse.x=(e.clientX/W)*2-1;
+  mouse.y=-(e.clientY/H)*2+1;
 });
-function clickables() { return [...nodeObjects.map(n=>n.hex), cMesh]; }
-renderer.domElement.addEventListener('click', e => {
+function clickables() {
+  return [...nodeObjects.map(n=>n.hex), cMesh, prelimMesh];
+}
+renderer.domElement.addEventListener('click', () => {
   raycaster.setFromCamera(mouse, camera);
   const hits = raycaster.intersectObjects(clickables());
   if(!hits.length) return;
   const obj = hits[0].object;
-  let ph = obj===cMesh ? centerPhase : nodeObjects.find(n=>n.hex===obj)?.phase;
+  let ph;
+  if(obj===cMesh) ph=REQ_PHASE;
+  else if(obj===prelimMesh) ph=PRELIM_PHASE;
+  else ph=nodeObjects.find(n=>n.hex===obj)?.phase;
   if(ph) openPanel(ph);
 });
 
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // ORBIT CONTROLS
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 let isDragging=false, prevM={x:0,y:0};
-let theta=0.05, phi=0.38, radius=22;
-let tTheta=0.05, tPhi=0.38, tRadius=22;
+let theta=0.04, phi=0.40, radius=24;
+let tTheta=0.04, tPhi=0.40, tRadius=24;
 
-renderer.domElement.addEventListener('mousedown', e=>{ isDragging=true; prevM={x:e.clientX,y:e.clientY}; });
-window.addEventListener('mouseup', ()=>isDragging=false);
-window.addEventListener('mousemove', e=>{
-  if(!isDragging) return;
-  tTheta -= (e.clientX-prevM.x)*0.006;
-  tPhi   -= (e.clientY-prevM.y)*0.004;
-  tPhi = Math.max(0.08, Math.min(1.3, tPhi));
-  prevM = {x:e.clientX, y:e.clientY};
+renderer.domElement.addEventListener('mousedown',e=>{isDragging=true;prevM={x:e.clientX,y:e.clientY};});
+window.addEventListener('mouseup',()=>isDragging=false);
+window.addEventListener('mousemove',e=>{
+  if(!isDragging)return;
+  tTheta-=(e.clientX-prevM.x)*0.006;
+  tPhi  -=(e.clientY-prevM.y)*0.004;
+  tPhi=Math.max(0.08,Math.min(1.3,tPhi));
+  prevM={x:e.clientX,y:e.clientY};
 });
-window.addEventListener('wheel', e=>{
-  tRadius += e.deltaY*0.04;
-  tRadius = Math.max(8, Math.min(40, tRadius));
+window.addEventListener('wheel',e=>{
+  tRadius+=e.deltaY*0.04;
+  tRadius=Math.max(8,Math.min(42,tRadius));
 });
 renderer.domElement.addEventListener('touchstart',e=>{isDragging=true;prevM={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
 renderer.domElement.addEventListener('touchend',()=>isDragging=false);
 renderer.domElement.addEventListener('touchmove',e=>{
   if(!isDragging)return;
   tTheta-=(e.touches[0].clientX-prevM.x)*0.006;
-  tPhi-=(e.touches[0].clientY-prevM.y)*0.004;
+  tPhi  -=(e.touches[0].clientY-prevM.y)*0.004;
   tPhi=Math.max(0.08,Math.min(1.3,tPhi));
   prevM={x:e.touches[0].clientX,y:e.touches[0].clientY};
 },{passive:true});
 
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // ANIMATE
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 const clock = new THREE.Clock();
 function animate() {
   requestAnimationFrame(animate);
   const t = clock.getElapsedTime();
 
-  // Camera orbit
-  theta  += (tTheta-theta)*0.07;
-  phi    += (tPhi-phi)*0.07;
-  radius += (tRadius-radius)*0.07;
+  theta  +=(tTheta-theta)*0.07;
+  phi    +=(tPhi-phi)*0.07;
+  radius +=(tRadius-radius)*0.07;
   camera.position.set(
     Math.sin(theta)*Math.cos(phi)*radius,
     Math.sin(phi)*radius,
@@ -762,48 +907,52 @@ function animate() {
   );
   camera.lookAt(0,0,0);
 
-  // Slow clockwise auto-rotation (matches ADM direction)
-  if(!isDragging) group.rotation.y += 0.0010;
+  // Very slow clockwise auto-rotation
+  if(!isDragging) group.rotation.y += 0.0008;
 
   // Center pulse
-  pRing.scale.setScalar(1 + Math.sin(t*1.6)*0.04);
-  pRing.material.opacity = 0.2 + Math.sin(t*1.6)*0.12;
-  iRing.material.opacity = 0.08 + Math.sin(t*1.2+1)*0.06;
-  cMesh.rotation.y = t * 0.18;
+  pRing.scale.setScalar(1+Math.sin(t*1.6)*0.04);
+  pRing.material.opacity=0.2+Math.sin(t*1.6)*0.12;
+  iRing.material.opacity=0.08+Math.sin(t*1.2+1)*0.06;
+  cMesh.rotation.y=t*0.18;
 
-  // Node hover highlight + gentle float
+  // Prelim gentle bob
+  prelimGroup.position.y = PRELIM_Y + Math.sin(t*0.7)*0.08;
+  prelimMesh.rotation.y = Math.PI/4 + Math.sin(t*0.3)*0.04;
+
+  // Connector label always face camera
+  lblMesh.lookAt(camera.position);
+
+  // Node hover + float
   raycaster.setFromCamera(mouse, camera);
   const hits = raycaster.intersectObjects(clickables());
-  const hit = hits.length ? hits[0].object : null;
+  const hitObj = hits.length ? hits[0].object : null;
 
-  nodeObjects.forEach(({group:ng, hex}, i) => {
-    const hov = hit===hex;
-    const ts = hov ? 1.13 : 1.0;
-    ng.scale.lerp(new THREE.Vector3(ts,ts,ts), 0.10);
-    // Gentle float — subtle, all on same plane
-    ng.position.y = ng.userData.originalY + Math.sin(t*0.65+i*0.7)*0.08;
-    renderer.domElement.style.cursor = hit ? 'pointer' : 'grab';
+  nodeObjects.forEach(({group:ng,hex},i)=>{
+    const hov=hitObj===hex;
+    const ts=hov?1.13:1.0;
+    ng.scale.lerp(new THREE.Vector3(ts,ts,ts),0.10);
+    ng.position.y=Math.sin(t*0.65+i*0.7)*0.07;
+    renderer.domElement.style.cursor=hitObj?'pointer':'grab';
   });
 
+  // Prelim hover
+  const prelimHov=hitObj===prelimMesh;
+  prelimGroup.scale.lerp(new THREE.Vector3(prelimHov?1.1:1,prelimHov?1.1:1,prelimHov?1.1:1),0.1);
+
   // Center hover
-  if(hit===cMesh) {
-    cGroup.scale.lerp(new THREE.Vector3(1.08,1.08,1.08), 0.1);
-    renderer.domElement.style.cursor = 'pointer';
-  } else {
-    cGroup.scale.lerp(new THREE.Vector3(1,1,1), 0.1);
-  }
+  cGroup.scale.lerp(new THREE.Vector3(hitObj===cMesh?1.08:1,hitObj===cMesh?1.08:1,hitObj===cMesh?1.08:1),0.1);
 
-  // Sun gentle movement
-  sun.position.set(12+Math.sin(t*0.04)*4, 18, 8+Math.cos(t*0.04)*3);
+  sun.position.set(12+Math.sin(t*0.04)*4,18,8+Math.cos(t*0.04)*3);
 
-  renderer.render(scene, camera);
+  renderer.render(scene,camera);
 }
 animate();
 
-window.addEventListener('resize', ()=>{
-  camera.aspect = innerWidth/innerHeight;
+window.addEventListener('resize',()=>{
+  camera.aspect=innerWidth/innerHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
+  renderer.setSize(innerWidth,innerHeight);
 });
 </script>
 </body>
